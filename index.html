@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音樂與運算思維學習互動式繪本    </title>
+
+
+
+<div class="hero-section">
+    <h1>音樂與運算思維學習互動式繪本</h1>
+    <p></p>
+</div>
+
+<div class="book-selection">
+    <div class="book-card">
+        <img src="covers/book1.png" alt="Book 1 Cover" class="book-cover" onclick="window.location.href='viewer.html?book=book1.pdf'">
+        <h2>未知的星球冒險 四分幸福號</h2>
+        <p>艾倫在放風箏的途中認識了新的朋友羅伯特，兩人為了修好壞掉的飛船展開了冒險旅程……</p>
+    </div>
+
+    <div class="book-card">
+        <img src="covers/book2.png" alt="Book 2 Cover" class="book-cover" onclick="window.location.href='viewer.html?book=book2.pdf'">
+        <h2>未知的星球冒險 宮殿的秘密</h2>
+        <p>修好飛船後的艾倫和羅伯特來到了羅伯特的家鄉，但原本漂亮的星球卻變得殘破不堪，兩人便開始想辦法將星球變回原樣……</p>
+    </div>
+
+    <div class="book-card">
+        <img src="covers/book3.png" alt="Book 3 Cover" class="book-cover" onclick="window.location.href='viewer.html?book=book3.pdf'">
+        <h2>未知的星球冒險 3</h2>
+        <p>為了尋找斷掉的風箏，艾倫和羅伯特繼續他們在星球間的冒險，經過了低音灌木叢、靜止王國……風箏到底去哪了呢？</p>
+    </div>
+</div>
+
+<style>
+/* 基本樣式與之前保持一致 */
+.hero-section {
+    background-image: url('homepage.png'); /* 背景圖片 */
+    background-size: cover;
+    background-position: center;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-section h1 {
+    font-size: 48px;
+    margin-bottom: 70px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.book-selection {
+    position: relative;
+    margin-top: -100px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.book-card {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.book-cover {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    cursor: pointer; /* 鼠標變為可點擊 */
+}
+
+.book-card h2 {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.book-card p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+</style>
+
