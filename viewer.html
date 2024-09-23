@@ -884,7 +884,7 @@ function ResizeflipCanvasSize() {
 if (aspectRatio < 1) {
         // 设置单页显示
         let scaleFactor = $(window).width() * 0.9 / (__PAGE_WIDTH );
-        let desiredHeight = 800;
+        let desiredHeight = 550;
         $('#flipbook').turn('size', __PAGE_WIDTH *  scaleFactor, desiredHeight);
 
         $('#flipbook').turn('display', 'single');
@@ -900,7 +900,7 @@ if (aspectRatio < 1) {
     } else {
         // 设置双页显示
         $('#flipbook').turn('display', 'double');
-        let desiredHeight = 800; 
+        let desiredHeight = 550; 
             // 調整 flipbook 大小
     $('#flipbook').turn('size', __PAGE_WIDTH * 2 * scaleFactor,desiredHeight);
     
