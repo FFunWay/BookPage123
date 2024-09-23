@@ -35,17 +35,17 @@
         }
 
         #flipbook {
-            margin: -20px 0 0 0;
+            margin: 20px auto;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             overflow: visible;
             width: 90%; /* 根據視窗大小調整寬度 */
-            height: 700px;
+            height: auto;
         }
         /* 返回首頁按鈕樣式 */
         #back-to-home {
-            position: relative;
-            top: 560px;
-            left: 0px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
@@ -110,7 +110,7 @@
         }
 
     #pdf-prev {
-    left: -50px; /* 初始位置可以设为负值，等到 JavaScript 调整 */
+    left: -40px; /* 初始位置可以设为负值，等到 JavaScript 调整 */
     }
 
     #pdf-next {
@@ -148,13 +148,13 @@
     
         #flipbook {
         width: 80%; /* 使用百分比宽度 */
-        height: 100%; /* 自动调整高度 */
+        height: auto; /* 自动调整高度 */
     }
     
     /* 确保其他元素的宽度也适应屏幕 */
-/*     .arrow-button {
+    .arrow-button {
         font-size: 20px;
-    } */
+    }
 
     }
         .arrow-button:hover {
@@ -275,15 +275,15 @@
 <body>
 
     <div id="flipbook-container">
-<!--         <button id="pdf-prev" class="arrow-button">
+        <button id="pdf-prev" class="arrow-button">
             <i class="fas fa-arrow-left"></i>
-        </button> -->
+        </button>
 
         <div id="flipbook"></div>
 
-<!--         <button id="pdf-next" class="arrow-button">
+        <button id="pdf-next" class="arrow-button">
             <i class="fas fa-arrow-right"></i>
-        </button> -->
+        </button>
     </div>
 
     <div class="progress-bar">
@@ -493,13 +493,13 @@ function renderPage(page, canvas, scale = 2) {
         document.getElementById('pdf-total-pages').textContent = __TOTAL_PAGES;
 
         __PDF_DOC.getPage(1).then(function(page) {
-            var viewport = page.getViewport(2);
+            var viewport = page.getViewport(1.33);
             __PAGE_WIDTH = viewport.width;
             __PAGE_HEIGHT = viewport.height;
 
             $('#flipbook').css({
                 'width': __PAGE_WIDTH * 2 + 'px',
-                'height': __PAGE_HEIGHT *1.5+ 'px'
+                'height': __PAGE_HEIGHT + 'px'
             });
 
             // 在这里计算 leftPosition
@@ -516,8 +516,8 @@ function renderPage(page, canvas, scale = 2) {
 
             // 初始化 flipbook
             $('#flipbook').turn({
-                width: __PAGE_WIDTH * 1.33,
-                height: __PAGE_HEIGHT * 1.33,
+                width: __PAGE_WIDTH * 3,
+                height: __PAGE_HEIGHT * 1.5,
                 autoCenter: true
             });
 
@@ -653,7 +653,7 @@ const flipbook = $('#flipbook');
     function setArrowButtonPosition() {
         const flipbookOffset = flipbook.offset();
         const flipbookWidth = flipbook.outerWidth();
-        const buttonOffset = 0; // 控制按钮离书页的距离
+        const buttonOffset = 20; // 控制按钮离书页的距离
 
         prevButton.css({
             top: flipbookOffset.top + flipbook.outerHeight() / 2 - prevButton.outerHeight() / 2 + 'px',
@@ -874,7 +874,7 @@ $(document).ready(function () {
         adjustArrowButtons(); // 页面翻动时调整箭头位置
     });
 });
- 
+
 
 function ResizeflipCanvasSize() {
     const aspectRatio = window.innerWidth / window.innerHeight;
@@ -953,42 +953,6 @@ function adjustLinkRegions() {
         }
     });
 }
-
-function adjustLinkRegions() {
-    // 計算當前畫布的縮放係數
-    const aspectRatio = window.innerWidth / window.innerHeight;
-    let scaleFactor;
-
-    if (aspectRatio < 1) {
-        scaleFactor = $(window).width() * 0.799 / (__PAGE_WIDTH);
-    } else {
-        scaleFactor = $(window).width() * 0.799 / (__PAGE_WIDTH * 2);
-    }
-
-    調整 DIVE 和 LINK 點擊區域的位置和大小
-    linkRegions.forEach(linkRegion => {
-        const config = linkRegion.config;
-        const element = $(linkRegion.element); // Ensure element is a jQuery object
-
-        // 确保 config 存在并包含必需的属性
-        if (config && 'left' in config && 'top' in config && 'width' in config && 'height' in config) {
-            // 調整位置和大小
-            element.css({
-                left: parseFloat(config.left) * scaleFactor + 'px',
-                top: parseFloat(config.top) * scaleFactor + 'px',
-                width: parseFloat(config.width) * scaleFactor + 'px',
-                height: parseFloat(config.height) * scaleFactor + 'px'
-            });
-
-            // 调试输出
-            console.log('Adjusted link region for page:', linkRegion.pageNumber, 'with scale factor:', scaleFactor);
-        } else {
-            console.warn('Missing or incomplete config for linkRegion:', linkRegion);
-        }
-    });
-}
-
-
 // 在調整視窗大小時調整點擊區域
 $(window).resize(function() {
     adjustLinkRegions();
