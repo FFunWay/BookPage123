@@ -493,7 +493,7 @@ function renderPage(page, canvas, scale = 2) {
         document.getElementById('pdf-total-pages').textContent = __TOTAL_PAGES;
 
         __PDF_DOC.getPage(1).then(function(page) {
-            var viewport = page.getViewport(1.33);
+            var viewport = page.getViewport(2);
             __PAGE_WIDTH = viewport.width;
             __PAGE_HEIGHT = viewport.height;
 
