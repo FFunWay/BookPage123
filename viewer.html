@@ -44,7 +44,7 @@
         /* 返回首頁按鈕樣式 */
         #back-to-home {
             position: relative;
-            top: 600px;
+            top: 660px;
             left: 0px;
             padding: 10px 20px;
             font-size: 16px;
@@ -152,9 +152,9 @@
     }
     
     /* 确保其他元素的宽度也适应屏幕 */
-    .arrow-button {
+/*     .arrow-button {
         font-size: 20px;
-    }
+    } */
 
     }
         .arrow-button:hover {
@@ -275,15 +275,15 @@
 <body>
 
     <div id="flipbook-container">
-        <button id="pdf-prev" class="arrow-button">
+<!--         <button id="pdf-prev" class="arrow-button">
             <i class="fas fa-arrow-left"></i>
-        </button>
+        </button> -->
 
         <div id="flipbook"></div>
 
-        <button id="pdf-next" class="arrow-button">
+<!--         <button id="pdf-next" class="arrow-button">
             <i class="fas fa-arrow-right"></i>
-        </button>
+        </button> -->
     </div>
 
     <div class="progress-bar">
@@ -874,7 +874,7 @@ $(document).ready(function () {
         adjustArrowButtons(); // 页面翻动时调整箭头位置
     });
 });
-
+ 
 
 function ResizeflipCanvasSize() {
     const aspectRatio = window.innerWidth / window.innerHeight;
