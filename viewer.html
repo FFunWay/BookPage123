@@ -866,104 +866,42 @@ function adjustArrowButtons() {
 }
 
 // 在页面加载完成后和窗口大小调整时调整按钮位置
-$(document).ready(function () {
-    adjustArrowButtons();
-    $(window).resize(adjustArrowButtons);
-
-    $('#flipbook').bind('turning', function(event, page, view) {
-        adjustArrowButtons(); // 页面翻动时调整箭头位置
-    });
-});
-
-
 function ResizeflipCanvasSize() {
-    const aspectRatio = window.innerWidth / window.innerHeight;
-    const scaleFactor = $(window).width() * 0.9 / (__PAGE_WIDTH * 2);
+    const scaleFactor = $(window).width() / __PAGE_WIDTH; // 基於螢幕寬度計算縮放比例
 
-// 如果宽高比小于1，则是直式
-if (aspectRatio < 1) {
-        // 设置单页显示
-        let scaleFactor = $(window).width() * 0.9 / (__PAGE_WIDTH );
-        $('#flipbook').turn('size', __PAGE_WIDTH *  scaleFactor, __PAGE_HEIGHT * scaleFactor);
+    // 保持比例計算高度
+    const newHeight = __PAGE_HEIGHT * scaleFactor;
 
+    // 如果寬高比小於1，設置為單頁顯示模式
+    if (window.innerWidth / window.innerHeight < 1) {
+        // 單頁顯示
+        $('#flipbook').turn('size', $(window).width(), newHeight); // 寬度等於螢幕寬度
         $('#flipbook').turn('display', 'single');
-    
-    $('#flipbook canvas').each(function() {
-        $(this).css({
-            'width': __PAGE_WIDTH * scaleFactor + 'px',
-            'height': __PAGE_HEIGHT * scaleFactor + 'px'
+
+        // 調整每個 canvas 的大小
+        $('#flipbook canvas').each(function() {
+            $(this).css({
+                'width': $(window).width() + 'px', // 調整寬度
+                'height': newHeight + 'px' // 調整高度
+            });
         });
-
-    });
-
     } else {
-        // 设置双页显示
+        // 雙頁顯示
+        $('#flipbook').turn('size', $(window).width(), newHeight); // 雙頁模式，寬度等於螢幕寬度
         $('#flipbook').turn('display', 'double');
-            // 調整 flipbook 大小
-    $('#flipbook').turn('size', __PAGE_WIDTH * 2 * scaleFactor, __PAGE_HEIGHT * scaleFactor);
-    
-    $('#flipbook canvas').each(function() {
-        $(this).css({
-            'width': __PAGE_WIDTH * scaleFactor + 'px',
-            'height': __PAGE_HEIGHT * scaleFactor + 'px'
+
+        // 調整每個 canvas 的大小
+        $('#flipbook canvas').each(function() {
+            $(this).css({
+                'width': ($(window).width() / 2) + 'px', // 雙頁模式時，每頁寬度等於螢幕的一半
+                'height': newHeight + 'px' // 保持高度一致
+            });
         });
-
-    });
     }
-
-    // 計算縮放比例
-    let windowWidth = $(window).width();
-
-
 
     // 調整箭頭按鈕位置
     setArrowButtonPosition();
 }
-
-function adjustLinkRegions() {
-    // 計算當前畫布的縮放係數
-    const aspectRatio = window.innerWidth / window.innerHeight;
-    let scaleFactor;
-
-    if (aspectRatio < 1) {
-        scaleFactor = $(window).width() * 0.799 / (__PAGE_WIDTH);
-    } else {
-        scaleFactor = $(window).width() * 0.799 / (__PAGE_WIDTH * 2);
-    }
-
-    // 調整 DIVE 和 LINK 點擊區域的位置和大小
-    linkRegions.forEach(linkRegion => {
-        const config = linkRegion.config;
-        const element = $(linkRegion.element); // Ensure element is a jQuery object
-
-        // 确保 config 存在并包含必需的属性
-        if (config && 'left' in config && 'top' in config && 'width' in config && 'height' in config) {
-            // 調整位置和大小
-            element.css({
-                left: parseFloat(config.left) * scaleFactor + 'px',
-                top: parseFloat(config.top) * scaleFactor + 'px',
-                width: parseFloat(config.width) * scaleFactor + 'px',
-                height: parseFloat(config.height) * scaleFactor + 'px'
-            });
-
-            // 调试输出
-            console.log('Adjusted link region for page:', linkRegion.pageNumber, 'with scale factor:', scaleFactor);
-        } else {
-            console.warn('Missing or incomplete config for linkRegion:', linkRegion);
-        }
-    });
-}
-// 在調整視窗大小時調整點擊區域
-$(window).resize(function() {
-    adjustLinkRegions();
-});
-function handleEmbedLinks(view, linkPages) {
-    view.forEach(pageNum => {
-        const pageKey = pageNum.toString();
-        if (linkPages[pageKey]) {
-            addEmbedLinkToPage(pageNum, linkPages[pageKey]);
-        }
-    });
 }
 
     </script>
