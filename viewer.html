@@ -892,7 +892,7 @@ if (aspectRatio < 1) {
     
     $('#flipbook canvas').each(function() {
         $(this).css({
-            'width': screenWidth , 
+            'width': screenWidth + 'px', 
             'height': desiredHeight + 'px'
         });
 
@@ -905,10 +905,10 @@ if (aspectRatio < 1) {
         let desiredHeight = 450; 
             // 調整 flipbook 大小
     // $('#flipbook').turn('size', __PAGE_WIDTH * 2 * scaleFactor,desiredHeight);
-    $('#flipbook').turn('size', screenWidth ,desiredHeight);
+    $('#flipbook').turn('size', screenWidth * 2 * scaleFactor ,desiredHeight);
     $('#flipbook canvas').each(function() {
         $(this).css({
-            'width': screenWidth ,
+            'width': screenWidth + 'px'
             'height': desiredHeight + 'px'
         });
 
