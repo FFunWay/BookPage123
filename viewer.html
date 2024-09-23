@@ -39,7 +39,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             overflow: visible;
             width: 90%; /* 根據視窗大小調整寬度 */
-            height: 1200px;
+            height: 700px;
         }
         /* 返回首頁按鈕樣式 */
         #back-to-home {
@@ -516,8 +516,8 @@ function renderPage(page, canvas, scale = 2) {
 
             // 初始化 flipbook
             $('#flipbook').turn({
-                width: __PAGE_WIDTH * 3,
-                height: __PAGE_HEIGHT * 3,
+                width: __PAGE_WIDTH * 1.33,
+                height: __PAGE_HEIGHT * 1.33,
                 autoCenter: true
             });
 
@@ -653,7 +653,7 @@ const flipbook = $('#flipbook');
     function setArrowButtonPosition() {
         const flipbookOffset = flipbook.offset();
         const flipbookWidth = flipbook.outerWidth();
-        const buttonOffset = 20; // 控制按钮离书页的距离
+        const buttonOffset = 0; // 控制按钮离书页的距离
 
         prevButton.css({
             top: flipbookOffset.top + flipbook.outerHeight() / 2 - prevButton.outerHeight() / 2 + 'px',
@@ -883,7 +883,7 @@ function ResizeflipCanvasSize() {
 // 如果宽高比小于1，则是直式
 if (aspectRatio < 1) {
         // 设置单页显示
-        let scaleFactor = $(window).width() * 0.9 / (__PAGE_WIDTH );
+        let scaleFactor = $(window).width() * 0.98 / (__PAGE_WIDTH );
         let desiredHeight = 550;
         $('#flipbook').turn('size', __PAGE_WIDTH *  scaleFactor, desiredHeight);
 
