@@ -885,7 +885,7 @@ if (aspectRatio < 1) {
         // 设置单页显示
         let scaleFactor = $(window).width() * 0.98 / (__PAGE_WIDTH );
         let screenWidth = $(window).width(); // 取得視窗寬度
-        let desiredHeight = 550;
+        let desiredHeight = 450;
         // $('#flipbook').turn('size', __PAGE_WIDTH *  scaleFactor, desiredHeight);
         $('#flipbook').turn('size', screenWidth, desiredHeight);
         $('#flipbook').turn('display', 'single');
@@ -902,7 +902,7 @@ if (aspectRatio < 1) {
         // 设置双页显示
         $('#flipbook').turn('display', 'double');
         let screenWidth = $(window).width(); // 取得視窗寬度
-        let desiredHeight = 550; 
+        let desiredHeight = 450; 
             // 調整 flipbook 大小
     // $('#flipbook').turn('size', __PAGE_WIDTH * 2 * scaleFactor,desiredHeight);
     $('#flipbook').turn('size', screenWidth ,desiredHeight);
