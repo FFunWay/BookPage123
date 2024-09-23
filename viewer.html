@@ -884,14 +884,15 @@ function ResizeflipCanvasSize() {
 if (aspectRatio < 1) {
         // 设置单页显示
         let scaleFactor = $(window).width() * 0.9 / (__PAGE_WIDTH );
-        $('#flipbook').turn('size', __PAGE_WIDTH *  scaleFactor, __PAGE_HEIGHT * scaleFactor);
+        let desiredHeight = 800;
+        $('#flipbook').turn('size', __PAGE_WIDTH *  scaleFactor, desiredHeight);
 
         $('#flipbook').turn('display', 'single');
     
     $('#flipbook canvas').each(function() {
         $(this).css({
             'width': __PAGE_WIDTH * scaleFactor + 'px',
-            'height': __PAGE_HEIGHT * scaleFactor + 'px'
+            'height': desiredHeight + 'px'
         });
 
     });
@@ -899,13 +900,14 @@ if (aspectRatio < 1) {
     } else {
         // 设置双页显示
         $('#flipbook').turn('display', 'double');
+        let desiredHeight = 800; 
             // 調整 flipbook 大小
-    $('#flipbook').turn('size', __PAGE_WIDTH * 2 * scaleFactor, __PAGE_HEIGHT * scaleFactor);
+    $('#flipbook').turn('size', __PAGE_WIDTH * 2 * scaleFactor,desiredHeight);
     
     $('#flipbook canvas').each(function() {
         $(this).css({
             'width': __PAGE_WIDTH * scaleFactor + 'px',
-            'height': __PAGE_HEIGHT * scaleFactor + 'px'
+            'height': desiredHeight + 'px'
         });
 
     });
