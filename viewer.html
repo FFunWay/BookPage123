@@ -954,6 +954,18 @@ function adjustLinkRegions() {
     });
 }
 
+$(window).resize(function() {
+    adjustLinkRegions();
+});
+function handleEmbedLinks(view, linkPages) {
+    view.forEach(pageNum => {
+        const pageKey = pageNum.toString();
+        if (linkPages[pageKey]) {
+            addEmbedLinkToPage(pageNum, linkPages[pageKey]);
+        }
+    });
+}
+
     </script>
 </body>
 </html>
