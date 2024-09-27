@@ -329,43 +329,69 @@ let __PDF_DOC,
     __CURRENT_BATCH = 1;
 let linkRegions = [];
 
-const embedLinkPages = {
-    '33': {
-        left: '1400',
-        top: '1200',
-        width: '450',
-        height: '450',
-        url: 'https:///tinty817.github.io/B1L3/' 
+const embedLinkPagesB1 ={
+    '15' : {
+        left: '68px',
+        top: '403px',
+        width: '100px',
+        height: '100px',
+        URL: 'https://ffunway.github.io/Volume1_Level1-/'
     },
-    '21': {
-        left: '320px',
-        top: '370px',
-        width: '120px',
-        height: '120px',
-        url: 'https://tinty817.github.io/B3L3/'
-        
-    },
-};
-
-
-const diveLinkPages = {
-    '15': {
-        left: '250px',
-        top: '1400px',
-        width: '330px',
-        height: '330px',
-        projectId: 28249
-    },
-    '23': {
-        left: '1300px',
-        top: '1400px',
-        width: '330px',
-        height: '330px',
-        projectId: 28245,
+    '23' : {
+        left: '422px',
+        top: '403px',
+        width: '100px',
+        height: '100px',
         transformOrigin : 'left top',
-        transform : 'rotate(30deg)'
-    }
+        transform : 'rotate(30deg)',
+        URL:'https://ffunway.github.io/DIVE/'
+    },
+    '33' : {
+        left: '504',
+        top: '314',
+        width: '120',
+        height: '120',
+        url: 'https:///tinty817.github.io/B1L3/'
+    },
 };
+    
+// const embedLinkPages = {
+//     '33': {
+//         left: '1400',
+//         top: '1200',
+//         width: '450',
+//         height: '450',
+//         url: 'https:///tinty817.github.io/B1L3/' 
+//     },
+//     '21': {
+//         left: '320px',
+//         top: '370px',
+//         width: '120px',
+//         height: '120px',
+//         url: 'https://tinty817.github.io/B3L3/'
+        
+//     },
+// };
+
+
+// const diveLinkPages = {
+//     '15': {
+//         left: '250px',
+//         top: '1400px',
+//         width: '330px',
+//         height: '330px',
+//         projectId: 28249
+//     },
+//     '23': {
+//         left: '1300px',
+//         top: '1400px',
+//         width: '330px',
+//         height: '330px',
+//         projectId: 28245,
+//         transformOrigin : 'left top',
+//         transform : 'rotate(30deg)'
+//     }
+// };
 
 const diveLinkPagesForSecondBook = {
     '11': {
@@ -562,9 +588,9 @@ function bindFlipbookEvents() {
 
         if (bookPath === FIRST_BOOK_FILENAME) {
             // Handle DIVE links
-            handlePageLinks(view, diveLinkPages);
+            // handlePageLinks(view, diveLinkPages);
             // Handle Embed links
-            handleEmbedLinks(view, embedLinkPages);
+            handleEmbedLinks(view, embedLinkPagesB1);
             if (isLastPage) {
                 askForNextBook('book2.pdf');
             }
