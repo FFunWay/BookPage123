@@ -710,6 +710,7 @@ function addDiveLinkToPage(pageNumber, config) {
     } else {
         linkElement = document.createElement('div');
         linkElement.style.backgroundColor = 'rgba(255, 0, 0, 0)';
+        
     }
 
     // 设置通用样式
@@ -718,7 +719,7 @@ function addDiveLinkToPage(pageNumber, config) {
     linkElement.style.top = config.top;
     linkElement.style.width = config.width;
     linkElement.style.height = config.height;
-    linkElement.style.zIndex = '1000';
+    linkElement.style.zIndex = '9900';
     linkElement.style.cursor = 'pointer';
 
     // 添加点击事件监听器
