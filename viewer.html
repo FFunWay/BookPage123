@@ -577,6 +577,7 @@ function bindFlipbookEvents() {
             }
         } else if (bookPath === THIRD_BOOK_FILENAME) {
             handlePageLinks(view, diveLinkPagesForThirdBook);
+            handleEmbedLinks(view, embedLinkPages);
             if (isLastPage) {
                 askForHome();
             }
