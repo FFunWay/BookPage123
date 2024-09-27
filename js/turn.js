@@ -91,7 +91,7 @@ var has3d,
 		
 		// Size of the active zone of each corner
 
-		cornerSize: 200,
+		cornerSize: 250,
 
 		// Enables gradients
 
