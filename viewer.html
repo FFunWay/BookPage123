@@ -679,12 +679,10 @@ const flipbook = $('#flipbook');
 
         document.getElementById('pdf-prev').addEventListener('click', function() {
             $('#flipbook').turn('previous');  // 执行翻到上一页的操作
-            adjustLinkRegions();
-
             $('#flipbook').bind('turned', function(event, page, view) {
-            adjustLinkRegions();  // 在翻页完成后调整链接区域
-            console.log("Adjust ok!");
-            });
+                adjustLinkRegions();  // 確保翻頁完成後重新調整點擊區域
+});
+            // adjustLinkRegions();
 
     
     // 获取当前页码并手动减 1
