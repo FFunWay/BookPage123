@@ -680,6 +680,7 @@ const flipbook = $('#flipbook');
         document.getElementById('pdf-prev').addEventListener('click', function() {
             $('#flipbook').turn('previous');  // 执行翻到上一页的操作
             $('#flipbook').bind('turned', function(event, page, view) {
+                console.log("Adjust ok!");
                 adjustLinkRegions();  // 確保翻頁完成後重新調整點擊區域
 });
             // adjustLinkRegions();
