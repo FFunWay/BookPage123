@@ -689,6 +689,11 @@ const flipbook = $('#flipbook');
     if (currentPage > 1) {
         currentPageElement.textContent = currentPage - 1;  // 页码减 1
     }
+
+    $('#flipbook').bind('turned', function(event, page, view) {
+    adjustLinkRegions();  // 在翻页完成后调整链接区域
+    });
+            
 });
 
         document.getElementById('pdf-next').addEventListener('click', function() {
