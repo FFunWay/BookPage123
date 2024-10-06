@@ -1025,13 +1025,11 @@ function initializeApp() {
 
     setTimeout(() => {
         hideLoading();  // 5 秒後隱藏 Loading 畫面，顯示書本內容
-    }, 5000); 
+    }, 4500); 
 }
 
 // 當頁面完全載入後，開始初始化
-document.getElementById('open-book-button').addEventListener('click', function() {
-    loadBookContent();  // 觸發載入過程
-})
+window.addEventListener('load', initializeApp);
     </script>
 </body>
 </html>
