@@ -274,7 +274,11 @@
 </head>
 
 <body>
-
+    <div id="loading-screen" style="display: flex; justify-content: center; align-items: center; position: fixed; width: 100%; height: 100%; background-color: #fff; z-index: 1000;">
+    <h2>Loading...</h2>
+    </div>
+    <div id="app-content" style="display: none;">
+        
     <div id="flipbook-container">
 <!--         <button id="pdf-prev" class="arrow-button">
             <i class="fas fa-arrow-left"></i>
@@ -291,9 +295,8 @@
         <progress id="reading-progress" value="0" max="100"></progress>
         <p id="page-number-display">Page <span id="pdf-current-page">1</span> of <span id="pdf-total-pages"></span></p>
     </div>
+    </div>
     
-
-
 
     <!-- DIVE 容器 -->
     <div id="dive-container">
@@ -993,6 +996,42 @@ function handleEmbedLinks(view, linkPages) {
         }
     });
 }
+
+// 假設這是載入資料的函數
+function loadData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Data Loaded");
+            resolve();  // 模擬載入完成
+        }, 3000);  // 假設載入時間是 3 秒
+    });
+}
+
+// 顯示 Loading 畫面
+function showLoading() {
+    document.getElementById('loading-screen').style.display = 'flex';
+    document.getElementById('app-content').style.display = 'none';
+}
+
+// 隱藏 Loading 畫面
+function hideLoading() {
+    document.getElementById('loading-screen').style.display = 'none';
+    document.getElementById('app-content').style.display = 'block';
+}
+
+// 初始化系統
+function initializeApp() {
+    showLoading();  // 顯示 Loading 畫面
+    loadData().then(() => {
+        // 資料載入完成，隱藏 Loading 畫面
+        hideLoading();
+    }).catch((error) => {
+        console.error('Error loading data:', error);
+    });
+}
+
+// 當頁面完全載入後，開始初始化
+window.addEventListener('load', initializeApp);
 
     </script>
 </body>
