@@ -408,7 +408,51 @@ const diveLinkPagesForThirdBook = {
     },
 };
 
+// 顯示 Loading 畫面
+function showLoading() {
+    const loadingScreen = document.getElementById('loading-screen');
+    const appContent = document.getElementById('app-content');
 
+    if (loadingScreen && appContent) {
+        loadingScreen.style.display = 'flex';
+        appContent.style.display = 'none';
+        console.log("Loading screen 顯示中...");
+    } else {
+        console.error("無法找到 loading-screen 或 app-content 元素");
+    }
+}
+
+// 隱藏 Loading 畫面
+function hideLoading() {
+    const loadingScreen = document.getElementById('loading-screen');
+    const appContent = document.getElementById('app-content');
+
+    if (loadingScreen && appContent) {
+        loadingScreen.style.display = 'none';
+        appContent.style.display = 'block';
+        console.log("Loading screen 已隱藏，顯示 app-content");
+    } else {
+        console.error("無法找到 loading-screen 或 app-content 元素");
+    }
+}
+
+// 當頁面載入後，顯示 Loading 畫面 5 秒鐘後隱藏
+function initializeApp() {
+    console.log("initializeApp 函數被呼叫");
+    showLoading();  // 顯示 Loading 畫面
+
+    // 5 秒後自動隱藏 Loading 畫面並顯示內容
+    setTimeout(() => {
+        console.log("5 秒到了，執行 hideLoading 函數");
+        hideLoading();
+    }, 3000);  // 5000 毫秒 = 5 秒
+}
+
+// 當頁面完全載入後，開始初始化
+window.addEventListener('load', () => {
+    console.log("ok! initializeApp");
+    initializeApp();
+});
 
 function renderPage(page, canvas, scale = 2) {
     if (!canvas) {
@@ -997,51 +1041,7 @@ function handleEmbedLinks(view, linkPages) {
     });
 }
 
-// 顯示 Loading 畫面
-function showLoading() {
-    const loadingScreen = document.getElementById('loading-screen');
-    const appContent = document.getElementById('app-content');
 
-    if (loadingScreen && appContent) {
-        loadingScreen.style.display = 'flex';
-        appContent.style.display = 'none';
-        console.log("Loading screen 顯示中...");
-    } else {
-        console.error("無法找到 loading-screen 或 app-content 元素");
-    }
-}
-
-// 隱藏 Loading 畫面
-function hideLoading() {
-    const loadingScreen = document.getElementById('loading-screen');
-    const appContent = document.getElementById('app-content');
-
-    if (loadingScreen && appContent) {
-        loadingScreen.style.display = 'none';
-        appContent.style.display = 'block';
-        console.log("Loading screen 已隱藏，顯示 app-content");
-    } else {
-        console.error("無法找到 loading-screen 或 app-content 元素");
-    }
-}
-
-// 當頁面載入後，顯示 Loading 畫面 5 秒鐘後隱藏
-function initializeApp() {
-    console.log("initializeApp 函數被呼叫");
-    showLoading();  // 顯示 Loading 畫面
-
-    // 5 秒後自動隱藏 Loading 畫面並顯示內容
-    setTimeout(() => {
-        console.log("5 秒到了，執行 hideLoading 函數");
-        hideLoading();
-    }, 5000);  // 5000 毫秒 = 5 秒
-}
-
-// 當頁面完全載入後，開始初始化
-window.addEventListener('load', () => {
-    console.log("頁面已完全載入，呼叫 initializeApp");
-    initializeApp();
-});
 
 
     </script>
