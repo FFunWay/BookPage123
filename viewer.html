@@ -1009,27 +1009,45 @@ function loadData() {
 
 // 顯示 Loading 畫面
 function showLoading() {
-    document.getElementById('loading-screen').style.display = 'flex';
-    document.getElementById('app-content').style.display = 'none';
+    const loadingScreen = document.getElementById('loading-screen');
+    const appContent = document.getElementById('app-content');
+
+    if (loadingScreen && appContent) {
+        loadingScreen.style.display = 'flex';
+        appContent.style.display = 'none';
+        console.log("Loading screen 顯示中...");
+    } else {
+        console.error("無法找到 loading-screen 或 app-content 元素");
+    }
 }
 
 // 隱藏 Loading 畫面
 function hideLoading() {
-    document.getElementById('loading-screen').style.display = 'none';
-    document.getElementById('app-content').style.display = 'block';
+    const loadingScreen = document.getElementById('loading-screen');
+    const appContent = document.getElementById('app-content');
+
+    if (loadingScreen && appContent) {
+        loadingScreen.style.display = 'none';
+        appContent.style.display = 'block';
+        console.log("Loading screen 已隱藏，顯示 app-content");
+    } else {
+        console.error("無法找到 loading-screen 或 app-content 元素");
+    }
 }
 
-// 初始化系統
+// 當頁面載入後，顯示 Loading 畫面 5 秒鐘後隱藏
 function initializeApp() {
     showLoading();  // 顯示 Loading 畫面
 
+    // 5 秒後自動隱藏 Loading 畫面並顯示內容
     setTimeout(() => {
-        hideLoading();  // 5 秒後隱藏 Loading 畫面，顯示書本內容
-    }, 4500); 
+        hideLoading();
+    }, 5000);  // 5000 毫秒 = 5 秒
 }
 
 // 當頁面完全載入後，開始初始化
 window.addEventListener('load', initializeApp);
+
     </script>
 </body>
 </html>
