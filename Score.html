@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學習診斷</title>
+    <link rel="stylesheet" href="CSS\sorce.css">
+</head>
+<body>
+    <button id="back-button" class="back-button">返回</button>
+    <div class="hero-section">
+        <h1>學習診斷</h1>
+        <p></p>
+    </div>
+
+        <!-- DIVE得分进度条 -->
+        <div class="label">運算思維掌握度</div>
+        <div class="progress-container">
+            <div id="diveProgress" class="progress-bar">0%</div>
+        </div>
+
+        <div class="label">音樂思維掌握度</div>
+        <div class="progress-container">
+            <div id="diveProgress" class="progress-bar">0%</div>
+        </div>
+
+        <div class="label">瞇瞇瞇</div>
+        <div class="progress-container">
+            <div id="diveProgress" class="progress-bar">0%</div>
+        </div>
+    </div>
+
+    <script>
+        // 获取已存储的翻页和DIVE得分
+        let pageScore = sessionStorage.getItem('pageScore') || 0;
+        let diveScores = JSON.parse(sessionStorage.getItem('diveScores')) || {};
+        let totalDiveScore = Object.values(diveScores).reduce((a, b) => a + b, 0);
+
+        // 设置翻页进度条
+        document.getElementById('pageProgress').style.width = pageScore + '%';
+        document.getElementById('pageProgress').textContent = pageScore + '%';
+
+        // 设置DIVE得分进度条
+        let diveScorePercentage = (totalDiveScore / 100) * 100;  // 假设DIVE满分为100
+        document.getElementById('diveProgress').style.width = diveScorePercentage + '%';
+        document.getElementById('diveProgress').textContent = diveScorePercentage + '%';
+    </script>
+</body>
+</html>
