@@ -730,6 +730,7 @@ $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     bookPath = urlParams.get('book'); // 获取当前书籍的文件名
     const url = `./pdfs/${bookPath}`;
+    
     showPDF(url);
     adjustLinkRegions();
 
@@ -738,8 +739,12 @@ $(document).ready(function() {
         window.location.href = 'index.html'; // 设置为首页的路径
     });
         document.getElementById('diagnosis-page').addEventListener('click', function() {
-        const pdfFile = urlParams.get('book') || 'default.pdf'; // 获取当前 PDF 文件路径
-        window.location.href = `Score.html?pdf=${pdfFile}`; // 跳转到 score.html 并传递 PDF 文件路径
+        const currentPdf = bookPath; // 获取当前 PDF 文件名
+        const currentPageIndex = getCurrentPageIndex(); // 获取当前页面索引
+        // 存储当前 PDF 和页面索引
+        sessionStorage.setItem('currentPdf', currentPdf);
+        sessionStorage.setItem('currentPageIndex', currentPageIndex);
+        window.location.href = `score.html?pdf=${currentPdf}`; // 跳转到 score.html
     });
     $(window).resize(ResizeflipCanvasSize);
     $(window).resize(adjustLinkRegions);
@@ -1093,7 +1098,10 @@ function handleEmbedLinks(view, linkPages) {
     });
 }
 
-
+function getCurrentPageIndex() {
+    // 替换为实际获取当前页面索引的逻辑
+    return $('#flipbook').turn('page');
+}
 
 
     </script>
