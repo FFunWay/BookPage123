@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>繪本閱讀</title>
     <div style="text-align: center; margin: 20px;">
-        <button id="back-to-home" style="padding: 10px 20px; font-size: 16px;">返回首頁
-        </button>
+        <button id="back-to-home" style="padding: 10px 20px; font-size: 16px;">返回首頁</button>
+        <button id="diagnosis-page" class="back-button">學習診斷</button>
     </div>
 
     <!-- 引用 jQuery -->
@@ -58,6 +58,26 @@
         }
 
         #back-to-home:hover {
+            background-color: #2958a3;
+        }
+        /* 學習診斷按鈕 */
+        #diagnosis-page {
+            font-family: Arial, sans-serif;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #3a7ce6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        #diagnosis-page:hover {
             background-color: #2958a3;
         }
         /* 按钮样式 */
