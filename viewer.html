@@ -727,63 +727,32 @@ var bookPath;
 
 $(document).ready(function() {
     console.log("Document ready, initializing...");
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const pdfFile = urlParams.get('pdf') || 'default.pdf'; // 获取 PDF 文件名，默认值为 'default.pdf'
-    // bookPath = urlParams.get('book'); // 获取当前书籍的文件名
-    // const url = `./pdfs/${bookPath}`;
-    // console.log(`Loading PDF: ${pdfFile}`); // 在控制台中输出加载的 PDF 文件名
-    
-    // showPDF(url);
-    // adjustLinkRegions();
-
-    //     // 绑定返回首页按钮的点击事件
-    //     document.getElementById('back-to-home').addEventListener('click', function() {
-    //     window.location.href = 'index.html'; // 设置为首页的路径
-    // });
-    //     document.getElementById('diagnosis-page').addEventListener('click', function() {
-    //     const currentPdf = bookPath; // 获取当前 PDF 文件名
-    //     const currentPageIndex = getCurrentPageIndex(); // 获取当前页面索引
-    //     // 存储当前 PDF 和页面索引
-    //     sessionStorage.setItem('currentPdf', currentPdf);
-    //     sessionStorage.setItem('currentPageIndex', currentPageIndex);
-    //     window.location.href = `Score.html?pdf=${currentPdf}`; // 跳转到 score.html
-    // });
-    
-    // 获取 URL 参数中的 PDF 文件名
     const urlParams = new URLSearchParams(window.location.search);
     const pdfFile = urlParams.get('pdf') || 'default.pdf'; // 获取 PDF 文件名，默认值为 'default.pdf'
-    
-    // 如果你有另一个参数 'book'，并且需要用到它
-    const bookPath = urlParams.get('book'); // 获取当前书籍的文件名
-    const url = `./pdfs/${pdfFile}`; // 使用从 URL 参数中获取的 PDF 文件名
-
+    bookPath = urlParams.get('book'); // 获取当前书籍的文件名
+    const url = `./pdfs/${bookPath}`;
     console.log(`Loading PDF: ${pdfFile}`); // 在控制台中输出加载的 PDF 文件名
     
-    // 显示 PDF 文件
-    showPDF(url); // 加载 PDF
+    showPDF(url);
     adjustLinkRegions();
 
-    // 绑定返回首页按钮的点击事件
-    document.getElementById('back-to-home').addEventListener('click', function() {
+        // 绑定返回首页按钮的点击事件
+        document.getElementById('back-to-home').addEventListener('click', function() {
         window.location.href = 'index.html'; // 设置为首页的路径
     });
-
-    // 绑定“學習診斷”按钮的点击事件
-    document.getElementById('diagnosis-page').addEventListener('click', function() {
-        const currentPdf = pdfFile; // 获取当前 PDF 文件名
+        document.getElementById('diagnosis-page').addEventListener('click', function() {
+        const currentPdf = bookPath; // 获取当前 PDF 文件名
         const currentPageIndex = getCurrentPageIndex(); // 获取当前页面索引
         // 存储当前 PDF 和页面索引
         sessionStorage.setItem('currentPdf', currentPdf);
         sessionStorage.setItem('currentPageIndex', currentPageIndex);
-        window.location.href = `Score.html?pdf=${currentPdf}`; // 跳转到 Score.html
+        window.location.href = `Score.html?pdf=${currentPdf}`; // 跳转到 score.html
     });
-    $(window).resize(ResizeflipCanvasSize);
-    $(window).resize(adjustLinkRegions);
     // 绑定返回首页按钮的点击事件
     document.getElementById('back-to-home').addEventListener('click', function() {
         window.location.href = 'index.html'; // 设置为首页的路径
     });
-
+    
 });
 
 const prevButton = $('#pdf-prev');
