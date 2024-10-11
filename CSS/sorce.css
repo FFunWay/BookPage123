@@ -1,0 +1,84 @@
+/* 基本样式 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('background.png'); /* 整个页面的背景图 */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* 使背景图高度覆盖整个页面 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+/* 容器，用于放置所有進度條 */
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+/* 標題樣式，置中且靠上 */
+h1 {
+    color: white; /* 設定字體為白色 */
+    margin-top: 40px; /* 增加上方空間 */
+    font-size: 60px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 加上文字陰影 */
+}
+
+/* 進度條容器樣式 */
+.progress-container {
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.3); /* 淡化白色背景使其不會過於顯眼 */
+    border-radius: 25px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+/* 進度條本身的樣式 */
+.progress-bar {
+    width: 0;
+    height: 30px;
+    background-color: #4CAF50;
+    border-radius: 25px;
+    line-height: 30px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    transition: width 0.5s;
+    padding-left: 10px; /* 將數字往內移動 */
+}
+
+/* 提示文本樣式 */
+.label {
+    font-size: 30px;
+    margin-top: 20px;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.back-button {
+    font-family: Arial, sans-serif;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #4ba6fb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #003db6;
+}
