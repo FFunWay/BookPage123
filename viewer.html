@@ -739,7 +739,7 @@ $(document).ready(function() {
     });
         document.getElementById('diagnosis-page').addEventListener('click', function() {
         const pdfFile = urlParams.get('book') || 'default.pdf'; // 获取当前 PDF 文件路径
-        window.location.href = `score.html?pdf=${pdfFile}`; // 跳转到 score.html 并传递 PDF 文件路径
+        window.location.href = `Score.html?pdf=${pdfFile}`; // 跳转到 score.html 并传递 PDF 文件路径
     });
     $(window).resize(ResizeflipCanvasSize);
     $(window).resize(adjustLinkRegions);
