@@ -759,7 +759,7 @@ $(document).ready(function() {
     const urlParams = new URLSearchParams(window.location.search);
     const pdfFile = urlParams.get('pdf') || 'default.pdf'; // 获取 PDF 文件名，默认值为 'default.pdf'
     bookPath = urlParams.get('book'); // 获取当前书籍的文件名
-    const url = ./pdfs/${bookPath};
+    const url = './pdfs/${bookPath}';
     console.log(Loading PDF: ${pdfFile}); // 在控制台中输出加载的 PDF 文件名
     
     showPDF(url);
