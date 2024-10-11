@@ -31,6 +31,15 @@
     </div>
 
     <script>
+        // 返回繪本內容
+        const urlParams = new URLSearchParams(window.location.search);
+        const pdfFile = urlParams.get('pdf') || 'default.pdf'; // 默認 PDF 文件
+
+        // 返回按鈕點擊事件，帶著 PDF 文件參數返回到 viewer.html
+        document.getElementById('back-button').addEventListener('click', function() {
+            window.location.href = `viewer.html?pdf=${pdfFile}`; // 跳轉到 viewer.html 並加上 pdf 文件參數
+        });
+        
         // 获取已存储的翻页和DIVE得分
         let pageScore = sessionStorage.getItem('pageScore') || 0;
         let diveScores = JSON.parse(sessionStorage.getItem('diveScores')) || {};
