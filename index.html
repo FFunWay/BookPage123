@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>音樂與運算思維學習互動式繪本    </title>
 
-<div class="hero-section">
-    <h1>音樂與運算思維學習互動式繪本</h1>
-    <p></p>
-</div>
-    
+    <span class="welcome-message" id="welcomeMessage"></span>
+    <a href="login.html" class="auth-button" id="authButton">登入</a>
+
+    <div class="hero-section">
+        <h1>音樂與運算思維學習互動式繪本</h1>
+        <p></p>
+    </div>
+
 <div class="book-selection">
     <div class="book-card">
         <img src="covers/book1.png" alt="Book 1 Cover" class="book-cover" onclick="window.location.href='viewer.html?book=book1.pdf'">
@@ -25,7 +28,7 @@
 
     <div class="book-card">
         <img src="covers/book3.png" alt="Book 3 Cover" class="book-cover" onclick="window.location.href='viewer.html?book=book3.pdf'">
-        <h2>未知的星球冒險 靜止王國</h2>
+        <h2>未知的星球冒險 3</h2>
         <p>為了尋找斷掉的風箏，艾倫和羅伯特繼續他們在星球間的冒險，經過了低音灌木叢、靜止王國……風箏到底去哪了呢？</p>
     </div>
 </div>
@@ -90,5 +93,55 @@
     color: #666;
     margin-bottom: 20px;
 }
+
+.welcome-message {
+    position: absolute;
+    top: 25px;
+    left: 1000px;
+    font-size: 23px;
+    color: #333;
+    /* font-family:sans-serif; */
+    z-index: 1;
+    /* margin-bottom: 5px; */
+    color: #ffffff;
+}
+
+.auth-button {
+    position: absolute;
+    top: 25px;
+    left: 1170px;
+    background-color: #4ba6fb;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.auth-button:hover {
+    background-color: #003db6;
+}
+
+.p {
+    margin-top: 20px;
+}
+
 </style>
 
+<script>
+    // 取得URL參數
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+
+    // 顯示歡迎訊息
+    if (username) {
+            document.getElementById('welcomeMessage').textContent = username + "，歡迎閱讀";
+            document.getElementById('authButton').textContent = "登出"; // 如果已經登入，顯示登出
+            document.getElementById('authButton').setAttribute("href", "login.html"); // 登出後回到登入頁面
+        } else {
+            document.getElementById('welcomeMessage').style.display = "none";
+            document.getElementById('authButton').textContent = "登入"; // 如果未登入，顯示登入
+            document.getElementById('authButton').setAttribute("href", "login.html");
+        }
+</script>
