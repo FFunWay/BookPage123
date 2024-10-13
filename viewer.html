@@ -829,6 +829,8 @@ $(document).ready(function() {
 
 
 });
+const prevButton = $('#pdf-prev');
+const nextButton = $('#pdf-next');
 const flipbook = $('#flipbook');
 // handlePageLinks 函数负责检查当前页面是否有链接，并调用 addDiveLinkToPage
 function handlePageLinks(view, linkPages) {
@@ -903,10 +905,6 @@ function addDiveLinkToPage(pageNumber, config) {
 }
 
 
-    
-const prevButton = $('#pdf-prev');
-const nextButton = $('#pdf-next');
-const flipbook = $('#flipbook');
 
     // 初始设置按钮位置
     setArrowButtonPosition();
