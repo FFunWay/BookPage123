@@ -859,11 +859,21 @@ $(document).ready(function() {
 });
 
 // handlePageLinks 函数负责检查当前页面是否有链接，并调用 addDiveLinkToPage
-function handlePageLinks(view, linkPages) {
-    console.log("handlePageLinks triggered for view:", view);
+function handlePageLinks(view) {
     view.forEach(pageNum => {
         const pageKey = pageNum.toString();
-        if (linkPages[pageKey]) {
+        let linkPages;
+        
+        // 根据当前页码选择相应的链接对象
+        if (pageNum >= 1 && pageNum <= 20) { // 假设第一册的页码范围
+            linkPages = diveLinkPages;
+        } else if (pageNum >= 21 && pageNum <= 40) { // 假设第二册的页码范围
+            linkPages = diveLinkPagesForSecondBook;
+        } else if (pageNum >= 41) { // 假设第三册的页码范围
+            linkPages = diveLinkPagesForThirdBook;
+        }
+
+        if (linkPages && linkPages[pageKey]) {
             addDiveLinkToPage(pageNum, linkPages[pageKey]);
         }
     });
