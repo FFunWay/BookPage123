@@ -829,7 +829,7 @@ $(document).ready(function() {
 
 
 });
-
+const flipbook = $('#flipbook');
 // handlePageLinks 函数负责检查当前页面是否有链接，并调用 addDiveLinkToPage
 function handlePageLinks(view, linkPages) {
     view.forEach(pageNum => {
@@ -1063,7 +1063,6 @@ function addEmbedLinkToPage(pageNumber, config) {
         }
     });
     
-
     // 将链接区域添加到当前页面的元素上
     const pageElement = $('#flipbook .page[data-page="' + pageNumber.toString() + '"]');
     if (pageElement.length > 0) {
