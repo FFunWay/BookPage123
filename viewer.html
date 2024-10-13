@@ -457,6 +457,23 @@ const diveLinkPagesForThirdBook = {
     },
 };
 
+const levelStatus_Book1 = {
+        '15': { completed: false, computationWeight: 0.4, musicWeight: 0.3 },
+        '23': { completed: false, computationWeight: 0.3, musicWeight: 0.4 }, 
+        '33': { completed: false, computationWeight: 0.3, musicWeight: 0.3}, 
+        };
+
+        const levelStatus_Book2 = {
+        '11': { completed: false, computationWeight: 0.7, musicWeight: 0.2 },
+        '15': { completed: false, computationWeight: 0.3, musicWeight: 0.8 }, 
+        };
+
+        const levelStatus_Book3 = {
+        '5': { completed: false, computationWeight: 0.4, musicWeight: 0.2 },
+        '13': { completed: false, computationWeight: 0.1, musicWeight: 0.5 }, 
+        '20': { completed: false, computationWeight: 0.5, musicWeight: 0.3}, 
+        };
+    
 // 顯示 Loading 畫面
 function showLoading() {
     const loadingScreen = document.getElementById('loading-screen');
@@ -1138,6 +1155,25 @@ function getCurrentPageIndex() {
     return $('#flipbook').turn('page');
 }
 
+// 更新關卡狀況
+function completeLevel(book, levelId) {
+    if (book === 1 && levelStatus_Book1.hasOwnProperty(levelId)) {
+        levelStatus_Book1[levelId].completed = true;
+    } else if (book === 2 && levelStatus_Book2.hasOwnProperty(levelId)) {
+        levelStatus_Book2[levelId].completed = true;
+    } else if (book === 3 && levelStatus_Book3.hasOwnProperty(levelId)) {
+        levelStatus_Book3[levelId].completed = true;
+    }
+    console.log(`Book ${book}, Level ${levelId} 已完成！`);
+}
+
+//傳至score.html
+document.getElementById('diagnosis-page').addEventListener('click', function() {
+    sessionStorage.setItem('levelStatus_Book1', JSON.stringify(levelStatus_Book1));
+    sessionStorage.setItem('levelStatus_Book2', JSON.stringify(levelStatus_Book2));
+    sessionStorage.setItem('levelStatus_Book3', JSON.stringify(levelStatus_Book3));
+    window.location.href = 'Score.html';
+});
 
     </script>
 </body>
