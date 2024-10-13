@@ -840,7 +840,8 @@ $(document).ready(function() {
     document.getElementById('back-to-home').addEventListener('click', function() {
         window.location.href = 'index.html'; // 设置为首页的路径
     });
-
+    $(window).resize(ResizeflipCanvasSize);
+    $(window).resize(adjustLinkRegions);
     // 绑定“學習診斷”按钮的点击事件
     document.getElementById('diagnosis-page').addEventListener('click', function() {
         const currentPdf = pdfFile || bookPath; // 获取当前 PDF 文件名
@@ -849,6 +850,7 @@ $(document).ready(function() {
         sessionStorage.setItem('currentPdf', currentPdf);
         sessionStorage.setItem('currentPageIndex', currentPageIndex);
         window.location.href = `Score.html?pdf=${currentPdf}`; // 跳转到 Score.html
+        
     });
 
     // 窗口调整事件
