@@ -701,9 +701,11 @@ function bindFlipbookEvents() {
 }
 
 function handlePageLinks(view, linkPages) {
+    console.log("View pages: ", view); 
     view.forEach(pageNum => {
         console.log("handlePageLinks triggered for view:", view); // 确认是否触发
         const pageKey = pageNum.toString();
+        console.log("Checking page:", pageKey);
         if (linkPages[pageKey]) {
             addDiveLinkToPage(pageNum, linkPages[pageKey]);
         }
