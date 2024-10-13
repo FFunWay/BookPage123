@@ -403,14 +403,14 @@ const embedLinkPages = {
 
 
 const diveLinkPages = {
-    '14': {
+    '15': {
         left: '250px',
         top: '1400px',
         width: '330px',
         height: '330px',
         projectId: 28249
     },
-    '22': {
+    '23': {
         left: '560px',
         top: '780px',
         width: '350px',
@@ -447,7 +447,7 @@ const diveLinkPagesForThirdBook = {
         projectId: 31666 ,
         // imagePath: 'QRcode/3-1.png' // 插入的第一张图片
     },
-    '15': {
+    '13': {
         left: '560px',
         top: '680px',
         width: '210px',
@@ -658,7 +658,7 @@ function renderPage(page, canvas, scale = 2) {
 }
 
 function bindFlipbookEvents() {
-    $('#flipbook').bind('turning', function(event, page, view) {
+    $('').bind('turning', function(event, page, view) {
         __CURRENT_PAGE = page;
         document.getElementById('pdf-current-page').textContent = page;
         updateProgressBar();
@@ -831,21 +831,10 @@ $(document).ready(function() {
 });
 
 // handlePageLinks 函数负责检查当前页面是否有链接，并调用 addDiveLinkToPage
-function handlePageLinks(view) {
+function handlePageLinks(view, linkPages) {
     view.forEach(pageNum => {
         const pageKey = pageNum.toString();
-        let linkPages;
-        
-        // 根据当前页码选择相应的链接对象
-        if (pageNum >= 1 && pageNum <= 20) { // 假设第一册的页码范围
-            linkPages = diveLinkPages;
-        } else if (pageNum >= 21 && pageNum <= 40) { // 假设第二册的页码范围
-            linkPages = diveLinkPagesForSecondBook;
-        } else if (pageNum >= 41) { // 假设第三册的页码范围
-            linkPages = diveLinkPagesForThirdBook;
-        }
-
-        if (linkPages && linkPages[pageKey]) {
+        if (linkPages[pageKey]) {
             addDiveLinkToPage(pageNum, linkPages[pageKey]);
         }
     });
@@ -853,13 +842,63 @@ function handlePageLinks(view) {
 
 // 示例的 addDiveLinkToPage 函数
 function addDiveLinkToPage(pageNumber, config) {
-    console.log("Adding DIVE link to page:", pageNumber); // 确认函数被调用
-    const pageElement = $('#flipbook .page[data-page="' + pageNumber.toString() + '"]');
-    if (pageElement.length > 0) {
-        console.log("Page element found for page:", pageNumber);
-        // 添加链接逻辑
+    console.log('Attempting to add DIVE link to page:', pageNumber);
+    console.log('Adding image for page:', pageNumber);
+
+    // 创建链接元素
+    let linkElement;
+    if (config.imagePath) {
+        linkElement = document.createElement('img');
+        linkElement.src = config.imagePath;
     } else {
-        console.error("Page element not found for page:", pageNumber);
+        linkElement = document.createElement('div');
+        linkElement.style.backgroundColor = 'rgba(255, 0, 0, 0)';
+    }
+
+    // 设置通用样式
+    linkElement.style.position = 'absolute';
+    linkElement.style.left = config.left;
+    linkElement.style.top = config.top;
+    linkElement.style.width = config.width;
+    linkElement.style.height = config.height;
+    linkElement.style.zIndex = '1000';
+    linkElement.style.cursor = 'pointer';
+
+    // 添加点击事件监听器
+    linkElement.addEventListener('click', function (e) {
+        e.stopPropagation(); // 防止事件冒泡
+        console.log('DIVE link clicked for page', pageNumber);
+        try {
+            const diveFrame = document.getElementById('dive-frame');
+            if (diveFrame) {
+                const diveLinker = new DiveLinker("dive");
+                diveLinker.setProject(config.projectId);
+                diveLinker.start();
+                document.getElementById('dive-container').style.display = 'flex';
+                diveFrame.classList.remove('hidden');
+            } else {
+                console.error("无法找到 dive-frame 元素");
+            }
+        } catch (error) {
+            console.error("DIVE 无法初始化:", error);
+        }
+    });
+    console.log('Image path:', config.imagePath);
+    console.log('Link element:', linkElement);
+
+    // 选择页面元素
+    const pageElement = $('#flipbook .page[data-page="' + pageNumber.toString() + '"]');
+    console.log('Page element for page', pageNumber, ':', pageElement);
+
+    if (pageElement.length > 0) {
+        pageElement.append(linkElement);
+        console.log('Link element added to page', pageNumber);
+        console.log(pageElement);
+
+        // **确保在 linkRegions 中包含 config**
+        linkRegions.push({ pageNumber: pageNumber, element: linkElement, config: config });
+    } else {
+        console.error('Cannot find page element for page', pageNumber);
     }
 }
 
