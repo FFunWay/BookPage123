@@ -29,7 +29,7 @@
     <style>
 
         body {
-            background-color: #3e3e3e; /* 设置整体背景色 */
+            background-color: #f8f9fa; /* 设置整体背景色 */
             margin: 0;
             font-family: Arial, sans-serif;
         }
@@ -43,9 +43,9 @@
         }
         /* 返回首頁按鈕樣式 */
         #back-to-home {
-            position: relative;
+            position: absolute;
             top: 20px;
-            left: 0px;
+            left: 20px;
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
@@ -63,7 +63,7 @@
         /* 學習診斷按鈕 */
         #diagnosis-page {
             font-family: Arial, sans-serif;
-            position: relative;
+            position: absolute;
             top: 20px;
             left: 20px;
             padding: 10px 20px;
@@ -107,35 +107,6 @@
             text-align: center;
             margin-bottom: 20px;
         }
-
-        /* 定義 loading 畫面的樣式 */
-        #loading-screen {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            z-index: 1000;
-        }
-    
-    /* Spinner 的樣式 */
-        .spinner {
-            width: 80px;
-            height: 80px;
-            border: 5px solid rgba(0, 0, 0, 0.2);
-            border-top: 5px solid #000;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        /* 定義旋轉動畫 */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
 
         /* 左右箭頭按鈕 */
         .arrow-button {
@@ -224,13 +195,12 @@
 }
 
 #page-number-display {
-    font-size: 24px;
+    font-size: 14px;
     margin-top: 5px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, 20px);
-    color: #ffffff;
 }
 
 
@@ -264,7 +234,7 @@
 }
 
 #dive-frame {
-            width: 90%;
+            width: 60%;
             height: auto;
             max-width: 1000px;
             max-height: 80%;
@@ -323,45 +293,50 @@
 </head>
 
 <body>
+
     <div id="loading-screen" style="display: flex; justify-content: center; align-items: center; position: fixed; width: 100%; height: 100%; background-color: #fff; z-index: 1000;">
-       <div class="spinner"></div>
-    </div>
-    <div id="app-content" style="display: none;">
-         
-    <div id="flipbook-container">
-<!--         <button id="pdf-prev" class="arrow-button">
-            <i class="fas fa-arrow-left"></i>
-        </button> -->
-
-        <div id="flipbook"></div>
-
-<!--         <button id="pdf-next" class="arrow-button">
-            <i class="fas fa-arrow-right"></i>
-        </button> -->
-    </div>
-
-    <div class="progress-bar">
-        <progress id="reading-progress" value="0" max="100"></progress>
-        <p id="page-number-display">Page <span id="pdf-current-page">1</span> of <span id="pdf-total-pages"></span></p>
-    </div>
+        <h2>Loading...</h2>
     </div>
     
+    <div id="app-content" style="display: none;">
+        <!-- 真正的應用程式內容 -->
+    <!-- Loading -->
+        <div id="flipbook-container">
+            <button id="pdf-prev" class="arrow-button">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+
+            <div id="flipbook"></div>
+
+            <button id="pdf-next" class="arrow-button">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="progress-bar">
+            <progress id="reading-progress" value="0" max="100"></progress>
+            <p id="page-number-display">Page <span id="pdf-current-page">1</span> of <span id="pdf-total-pages"></span></p>
+        </div>
+    
+
+
 
     <!-- DIVE 容器 -->
-    <div id="dive-container">
-        <iframe id="dive-frame" name="dive"></iframe>
-        <div id="dive-buttons">
-            <button onclick="closeDive()">關閉遊戲</button>
-            <button onclick="restartDive()">重新整理</button>
+        <div id="dive-container">
+            <iframe id="dive-frame" name="dive"></iframe>
+            <div id="dive-buttons">
+                <button onclick="closeDive()">關閉遊戲</button>
+                <button onclick="restartDive()">重新整理</button>
+            </div>
         </div>
-    </div>
 <!-- 这是用于嵌入网页的容器 -->
-<div id="embed-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 9999;">
-    <iframe id="embed-frame" style="width: 90%; height: 80%; border: 2px solid #333;"></iframe>
-    <div id="embed-buttons" style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 10000;">
-        <button onclick="closeEmbed()" style="margin: 5px; padding: 10px 20px; border-radius: 5px; background-color: #3a7ce6; color: white; cursor: pointer; border: none; font-size: 16px;">關閉遊戲</button>
-        <button onclick="reloadEmbed()" style="margin: 5px; padding: 10px 20px; border-radius: 5px; background-color: #3a7ce6; color: white; cursor: pointer; border: none; font-size: 16px;">重新整理</button>
-</div>
+        <div id="embed-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 9999;">
+        <iframe id="embed-frame" style="width: 60%; height: 80%; border: 2px solid #333;"></iframe>
+        <div id="embed-buttons" style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 10000;">
+            <button onclick="closeEmbed()" style="margin: 5px; padding: 10px 20px; border-radius: 5px; background-color: #3a7ce6; color: white; cursor: pointer; border: none; font-size: 16px;">關閉遊戲</button>
+            <button onclick="reloadEmbed()" style="margin: 5px; padding: 10px 20px; border-radius: 5px; background-color: #3a7ce6; color: white; cursor: pointer; border: none; font-size: 16px;">重新整理</button>
+       </div>
+    </div>
 
 
 <script>
@@ -382,20 +357,20 @@ let __PDF_DOC,
 let linkRegions = [];
 
 
-    
+
 const embedLinkPages = {
     '33': {
-        left: '580px',
-        top: '1000px',
-        width: '450px',
-        height: '450px',
-        url: 'https://tinty817.github.io/B1L3/' 
+        left: '504',
+        top: '314',
+        width: '120',
+        height: '120',
+        url: 'https:///tinty817.github.io/B1L3/' 
     },
-    '21': {
-        left: '470px',
-        top: '180px',
-        width: '250px',
-        height: '250px',
+    '20': {
+        left: '320px',
+        top: '370px',
+        width: '120px',
+        height: '120px',
         url: 'https://tinty817.github.io/B3L3/'
         
     },
@@ -404,17 +379,18 @@ const embedLinkPages = {
 
 const diveLinkPages = {
     '15': {
-        left: '250px',
-        top: '1400px',
-        width: '330px',
-        height: '330px',
-        projectId: 28249
+        left: '68px',
+        top: '403px',
+        width: '100px',
+        height: '100px',
+        projectId: 28249,
+        
     },
     '23': {
-        left: '560px',
-        top: '780px',
-        width: '350px',
-        height: '350px',
+        left: '422px',
+        top: '403px',
+        width: '100px',
+        height: '100px',
         projectId: 28245,
         transformOrigin : 'left top',
         transform : 'rotate(30deg)'
@@ -423,40 +399,42 @@ const diveLinkPages = {
 
 const diveLinkPagesForSecondBook = {
     '11': {
-        left: '320px',
-        top: '1200px',
-        width: '550px',
-        height: '550px',
+        left: '86px',
+        top: '325px',
+        width: '130px',
+        height: '130px',
         projectId: 28287 // 第二册的 DIVE 项目编号
     },
     '15': {
-        left: '1060px',
-        top: '1200px',
-        width: '350px',
-        height: '350px',
+        left: '270px',
+        top: '330px',
+        width: '150px',
+        height: '150px',
         projectId: 28254 ,
 
     },
 };
 const diveLinkPagesForThirdBook = {
     '5': {
-        left: '590px',
-        top: '610px',
-        width: '200px',
-        height: '200px',
+        left: '550px',
+        top: '40px',
+        width: '120px',
+        height: '120px',
         projectId: 31666 ,
         // imagePath: 'QRcode/3-1.png' // 插入的第一张图片
     },
     '13': {
-        left: '560px',
-        top: '680px',
-        width: '210px',
-        height: '210px',
+        left: '320px',
+        top: '370px',
+        width: '120px',
+        height: '120px',
         projectId: 30173 ,
-       
+        // imagePath: 'QRcode/3-2.png' 
     },
-};
+    
 
+};
+// 關卡狀況與比重
 const levelStatus_Book1 = {
         '15': { completed: false, computationWeight: 0.4, musicWeight: 0.3 },
         '23': { completed: false, computationWeight: 0.3, musicWeight: 0.4 }, 
@@ -473,52 +451,8 @@ const levelStatus_Book1 = {
         '13': { completed: false, computationWeight: 0.1, musicWeight: 0.5 }, 
         '20': { completed: false, computationWeight: 0.5, musicWeight: 0.3}, 
         };
-    
-// 顯示 Loading 畫面
-function showLoading() {
-    const loadingScreen = document.getElementById('loading-screen');
-    const appContent = document.getElementById('app-content');
 
-    if (loadingScreen && appContent) {
-        loadingScreen.style.display = 'flex';
-        appContent.style.display = 'none';
-        console.log("Loading screen 顯示中...");
-    } else {
-        console.error("無法找到 loading-screen 或 app-content 元素");
-    }
-}
 
-// 隱藏 Loading 畫面
-function hideLoading() {
-    const loadingScreen = document.getElementById('loading-screen');
-    const appContent = document.getElementById('app-content');
-
-    if (loadingScreen && appContent) {
-        loadingScreen.style.display = 'none';
-        appContent.style.display = 'block';
-        console.log("Loading screen 已隱藏，顯示 app-content");
-    } else {
-        console.error("無法找到 loading-screen 或 app-content 元素");
-    }
-}
-
-// 當頁面載入後，顯示 Loading 畫面 5 秒鐘後隱藏
-function initializeApp() {
-    console.log("initializeApp 函數被呼叫");
-    showLoading();  // 顯示 Loading 畫面
-
-    // 5 秒後自動隱藏 Loading 畫面並顯示內容
-    setTimeout(() => {
-        console.log("5 秒到了，執行 hideLoading 函數");
-        hideLoading();
-    }, 3000);  // 5000 毫秒 = 5 秒
-}
-
-// 當頁面完全載入後，開始初始化
-window.addEventListener('load', () => {
-    console.log("ok! initializeApp");
-    initializeApp();
-});
 
 function renderPage(page, canvas, scale = 2) {
     if (!canvas) {
@@ -622,7 +556,7 @@ function renderPage(page, canvas, scale = 2) {
 
             $('#flipbook').css({
                 'width': __PAGE_WIDTH * 2 + 'px',
-                'height': __PAGE_HEIGHT * 1.5 + 'px'
+                'height': __PAGE_HEIGHT + 'px'
             });
 
             // 在这里计算 leftPosition
@@ -640,7 +574,7 @@ function renderPage(page, canvas, scale = 2) {
             // 初始化 flipbook
             $('#flipbook').turn({
                 width: __PAGE_WIDTH * 3,
-                height: __PAGE_HEIGHT * 3,
+                height: __PAGE_HEIGHT * 1.5,
                 autoCenter: true
             });
 
@@ -658,7 +592,7 @@ function renderPage(page, canvas, scale = 2) {
 }
 
 function bindFlipbookEvents() {
-    $('').bind('turning', function(event, page, view) {
+    $('#flipbook').bind('turning', function(event, page, view) {
         __CURRENT_PAGE = page;
         document.getElementById('pdf-current-page').textContent = page;
         updateProgressBar();
@@ -701,11 +635,8 @@ function bindFlipbookEvents() {
 }
 
 function handlePageLinks(view, linkPages) {
-    console.log("View pages: ", view); 
     view.forEach(pageNum => {
-        console.log("handlePageLinks triggered for view:", view); // 确认是否触发
         const pageKey = pageNum.toString();
-        console.log("Checking page:", pageKey);
         if (linkPages[pageKey]) {
             addDiveLinkToPage(pageNum, linkPages[pageKey]);
         }
@@ -744,70 +675,7 @@ function askForHome() {
 }
 
 var bookPath;
-// $(document).ready(function() {
-//     console.log("Document ready, initializing...");
-//     const urlParams = new URLSearchParams(window.location.search);
-//     bookPath = urlParams.get('book'); // 获取当前书籍的文件名
-//     const url = `./pdfs/${bookPath}`;
-//     showPDF(url);
-//     adjustLinkRegions();
 
-//         // 绑定返回首页按钮的点击事件
-//         document.getElementById('back-to-home').addEventListener('click', function() {
-//         window.location.href = 'index.html'; // 设置为首页的路径
-//     });
-//         document.getElementById('diagnosis-page').addEventListener('click', function() {
-//         window.location.href = 'Score.html'; // 设置为診斷學習路径
-//     });
-//     $(window).resize(ResizeflipCanvasSize);
-//     $(window).resize(adjustLinkRegions);
-//     // 绑定返回首页按钮的点击事件
-//     document.getElementById('back-to-home').addEventListener('click', function() {
-//         window.location.href = 'index.html'; // 设置为首页的路径
-//     });
-
-// });
-// $(document).ready(function() {
-//     console.log("Document ready, initializing...");
-
-//     // 获取 URL 参数
-//     const urlParams = new URLSearchParams(window.location.search);
-//     const pdfFile = urlParams.get('pdf'); // 获取 PDF 文件名
-//     const bookPath = urlParams.get('book'); // 获取当前书籍的文件名
-
-//     // 根据 PDF 文件名或书籍文件名设置 URL
-//     let url;
-//     if (pdfFile) {
-//         url = `./pdfs/${pdfFile}`; // 如果接收到 pdf，则使用 pdf
-//         console.log(`Loading PDF from parameter: ${url}`);
-//     } else {
-//         url = `./pdfs/${bookPath}`; // 否则使用 bookPath
-//         console.log(`Loading PDF from book path: ${url}`);
-//     }
-
-//     // 显示 PDF 文件
-//     showPDF(url); // 加载 PDF
-//     adjustLinkRegions();
-
-//     // 绑定返回首页按钮的点击事件
-//     document.getElementById('back-to-home').addEventListener('click', function() {
-//         window.location.href = 'index.html'; // 设置为首页的路径
-//     });
-
-//     // 绑定“學習診斷”按钮的点击事件
-//     document.getElementById('diagnosis-page').addEventListener('click', function() {
-//         const currentPdf = pdfFile || bookPath; // 获取当前 PDF 文件名
-//         const currentPageIndex = getCurrentPageIndex(); // 获取当前页面索引
-//         // 存储当前 PDF 和页面索引
-//         sessionStorage.setItem('currentPdf', currentPdf);
-//         sessionStorage.setItem('currentPageIndex', currentPageIndex);
-//         window.location.href = `Score.html?pdf=${currentPdf}`; // 跳转到 Score.html
-//     });
-
-//     // 窗口调整事件
-//     $(window).resize(ResizeflipCanvasSize);
-//     $(window).resize(adjustLinkRegions);
-// });
 $(document).ready(function() {
     console.log("Document ready, initializing...");
     const urlParams = new URLSearchParams(window.location.search);
@@ -829,82 +697,10 @@ $(document).ready(function() {
 
 
 });
+
 const prevButton = $('#pdf-prev');
 const nextButton = $('#pdf-next');
 const flipbook = $('#flipbook');
-// handlePageLinks 函数负责检查当前页面是否有链接，并调用 addDiveLinkToPage
-function handlePageLinks(view, linkPages) {
-    view.forEach(pageNum => {
-        const pageKey = pageNum.toString();
-        if (linkPages[pageKey]) {
-            addDiveLinkToPage(pageNum, linkPages[pageKey]);
-        }
-    });
-}
-
-// 示例的 addDiveLinkToPage 函数
-function addDiveLinkToPage(pageNumber, config) {
-    console.log('Attempting to add DIVE link to page:', pageNumber);
-    console.log('Adding image for page:', pageNumber);
-
-    // 创建链接元素
-    let linkElement;
-    if (config.imagePath) {
-        linkElement = document.createElement('img');
-        linkElement.src = config.imagePath;
-    } else {
-        linkElement = document.createElement('div');
-        linkElement.style.backgroundColor = 'rgba(255, 0, 0, 0)';
-    }
-
-    // 设置通用样式
-    linkElement.style.position = 'absolute';
-    linkElement.style.left = config.left;
-    linkElement.style.top = config.top;
-    linkElement.style.width = config.width;
-    linkElement.style.height = config.height;
-    linkElement.style.zIndex = '1000';
-    linkElement.style.cursor = 'pointer';
-
-    // 添加点击事件监听器
-    linkElement.addEventListener('click', function (e) {
-        e.stopPropagation(); // 防止事件冒泡
-        console.log('DIVE link clicked for page', pageNumber);
-        try {
-            const diveFrame = document.getElementById('dive-frame');
-            if (diveFrame) {
-                const diveLinker = new DiveLinker("dive");
-                diveLinker.setProject(config.projectId);
-                diveLinker.start();
-                document.getElementById('dive-container').style.display = 'flex';
-                diveFrame.classList.remove('hidden');
-            } else {
-                console.error("无法找到 dive-frame 元素");
-            }
-        } catch (error) {
-            console.error("DIVE 无法初始化:", error);
-        }
-    });
-    console.log('Image path:', config.imagePath);
-    console.log('Link element:', linkElement);
-
-    // 选择页面元素
-    const pageElement = $('#flipbook .page[data-page="' + pageNumber.toString() + '"]');
-    console.log('Page element for page', pageNumber, ':', pageElement);
-
-    if (pageElement.length > 0) {
-        pageElement.append(linkElement);
-        console.log('Link element added to page', pageNumber);
-        console.log(pageElement);
-
-        // **确保在 linkRegions 中包含 config**
-        linkRegions.push({ pageNumber: pageNumber, element: linkElement, config: config });
-    } else {
-        console.error('Cannot find page element for page', pageNumber);
-    }
-}
-
-
 
     // 初始设置按钮位置
     setArrowButtonPosition();
@@ -928,35 +724,30 @@ function addDiveLinkToPage(pageNumber, config) {
         });
     }
 
+    // document.getElementById('pdf-prev').addEventListener('click', function() {
+    //     $('#flipbook').turn('previous');  // 执行翻到上一页的操作
+    //     adjustLinkRegions();
 
-            $('#flipbook').bind('turned', function(event, page, view) {
-                console.log("Adjust ok!");
-                adjustLinkRegions();  // 確保翻頁完成後重新調整點擊區域
-            });
+    $('#flipbook').bind('turned', function(event, page, view) {
+        console.log("Adjust ok!");
+        adjustLinkRegions();  // 確保翻頁完成後重新調整點擊區域
+     });
 
 // 之後再加入點擊事件
-            document.getElementById('pdf-prev').addEventListener('click', function() {
-                $('#flipbook').turn('previous');  // 執行翻到上一頁的操作
-           
-//         document.getElementById('pdf-prev').addEventListener('click', function() {
-//             $('#flipbook').turn('previous');// 执行翻到上一页的操作
-//             $('#flipbook').bind('turned', function(event, page, view) {
-//                 console.log("Adjust ok!");
-//                 adjustLinkRegions();  // 確保翻頁完成後重新調整點擊區域
-// });
-            // adjustLinkRegions();
+    document.getElementById('pdf-prev').addEventListener('click', function() {
+        $('#flipbook').turn('previous');  // 執行翻到上一頁的操作
+       
 
-    
+
     // 获取当前页码并手动减 1
     let currentPageElement = document.getElementById('pdf-current-page');
     let currentPage = parseInt(currentPageElement.textContent);
     
     if (currentPage > 1) {
         currentPageElement.textContent = currentPage - 1;  // 页码减 1
-        adjustLinkRegions(); 
-        console.log("Adjust ok!");
     }
-            
+    
+
 });
 
         document.getElementById('pdf-next').addEventListener('click', function() {
@@ -979,7 +770,6 @@ function addDiveLinkToPage(pageNumber, config) {
     } else {
         linkElement = document.createElement('div');
         linkElement.style.backgroundColor = 'rgba(255, 0, 0, 0)';
-        
     }
 
     // 设置通用样式
@@ -988,7 +778,7 @@ function addDiveLinkToPage(pageNumber, config) {
     linkElement.style.top = config.top;
     linkElement.style.width = config.width;
     linkElement.style.height = config.height;
-    linkElement.style.zIndex = '9900';
+    linkElement.style.zIndex = '1000';
     linkElement.style.cursor = 'pointer';
 
     // 添加点击事件监听器
@@ -1061,6 +851,7 @@ function addEmbedLinkToPage(pageNumber, config) {
         }
     });
     
+
     // 将链接区域添加到当前页面的元素上
     const pageElement = $('#flipbook .page[data-page="' + pageNumber.toString() + '"]');
     if (pageElement.length > 0) {
@@ -1144,6 +935,7 @@ function adjustArrowButtons() {
 
 }
 
+// 在页面加载完成后和窗口大小调整时调整按钮位置
 $(document).ready(function () {
     adjustArrowButtons();
     $(window).resize(adjustArrowButtons);
@@ -1156,7 +948,7 @@ $(document).ready(function () {
 
 function ResizeflipCanvasSize() {
     const aspectRatio = window.innerWidth / window.innerHeight;
-    const scaleFactor = $(window).width() / (__PAGE_WIDTH * 2);
+    const scaleFactor = $(window).width() * 0.9 / (__PAGE_WIDTH * 2);
 
 // 如果宽高比小于1，则是直式
 if (aspectRatio < 1) {
@@ -1191,8 +983,6 @@ if (aspectRatio < 1) {
 
     // 計算縮放比例
     let windowWidth = $(window).width();
-
-
 
     // 調整箭頭按鈕位置
     setArrowButtonPosition();
@@ -1231,7 +1021,7 @@ function adjustLinkRegions() {
         }
     });
 }
-
+// 在調整視窗大小時調整點擊區域
 $(window).resize(function() {
     adjustLinkRegions();
 });
@@ -1244,9 +1034,46 @@ function handleEmbedLinks(view, linkPages) {
     });
 }
 
-function getCurrentPageIndex() {
-    // 替换为实际获取当前页面索引的逻辑
-    return $('#flipbook').turn('page');
+function loadData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Data Loaded");
+            resolve();  // 模擬載入完成
+        }, 3000);  // 假設載入時間是 3 秒
+    });
+}
+
+// 假設這是載入資料的函數
+function loadData() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("Data Loaded");
+            resolve();  // 模擬載入完成
+        }, 3000);  // 假設載入時間是 3 秒
+    });
+}
+
+// 顯示 Loading 畫面
+function showLoading() {
+    document.getElementById('loading-screen').style.display = 'flex';
+    document.getElementById('app-content').style.display = 'none';
+}
+
+// 隱藏 Loading 畫面
+function hideLoading() {
+    document.getElementById('loading-screen').style.display = 'none';
+    document.getElementById('app-content').style.display = 'block';
+}
+
+// 初始化系統
+function initializeApp() {
+    showLoading();  // 顯示 Loading 畫面
+    loadData().then(() => {
+        // 資料載入完成，隱藏 Loading 畫面
+        hideLoading();
+    }).catch((error) => {
+        console.error('Error loading data:', error);
+    });
 }
 
 // 更新關卡狀況
@@ -1268,6 +1095,11 @@ document.getElementById('diagnosis-page').addEventListener('click', function() {
     sessionStorage.setItem('levelStatus_Book3', JSON.stringify(levelStatus_Book3));
     window.location.href = 'Score.html';
 });
+
+
+// 當頁面完全載入後，開始初始化
+window.addEventListener('load', initializeApp);
+
 
     </script>
 </body>
