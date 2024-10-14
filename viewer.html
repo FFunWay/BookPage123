@@ -617,7 +617,7 @@ function renderPage(page, canvas, scale = 2) {
 
             $('#flipbook').css({
                 'width': __PAGE_WIDTH * 2 + 'px',
-                'height': __PAGE_HEIGHT + 'px'
+                'height': __PAGE_HEIGHT * 1.5 + 'px'
             });
 
             // 在这里计算 leftPosition
@@ -635,7 +635,7 @@ function renderPage(page, canvas, scale = 2) {
             // 初始化 flipbook
             $('#flipbook').turn({
                 width: __PAGE_WIDTH * 3,
-                height: __PAGE_HEIGHT * 1.5,
+                height: __PAGE_HEIGHT * 3,
                 autoCenter: true
             });
 
