@@ -108,6 +108,35 @@
             margin-bottom: 20px;
         }
 
+        /* 定義 loading 畫面的樣式 */
+        #loading-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 1000;
+        }
+    
+    /* Spinner 的樣式 */
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(0, 0, 0, 0.2);
+            border-top: 5px solid #000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        /* 定義旋轉動畫 */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        
         /* 左右箭頭按鈕 */
         .arrow-button {
         position: absolute;
