@@ -32,7 +32,7 @@
         <p>為了尋找斷掉的風箏，艾倫和羅伯特繼續他們在星球間的冒險，經過了低音灌木叢、靜止王國……風箏到底去哪了呢？</p>
     </div>
     
-<div class="book-selection2">
+<!-- <div class="book-selection2"> -->
     <div class="book-card">
         <img src="covers/book2.png" alt="Book 2 Cover" class="book-cover" onclick="window.location.href='viewer.html?book=book2.pdf'">
         <h2>未知的星球冒險 宮殿的秘密</h2>
@@ -82,18 +82,20 @@
     align-items: flex-end;
 } */
 
-.book-selection, .book-selection2 {
-  margin-top: -100px;
+.book-selection {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 上層設置三列 */
-  grid-template-rows: auto; /* 行高會根據內容自動調整 */
-  justify-content: space-evenly;
-  gap: 20px; /* 控制物件之間的間距 */
+  grid-template-columns: repeat(3, 1fr); /* 上層三個物件 */
+  grid-template-rows: auto auto; /* 兩行，行高根據內容自動調整 */
+  gap: 20px; /* 控制項目之間的間距 */
 }
 
-.book-selection2 {
-  grid-template-columns: repeat(2, 1fr); /* 下層設置兩列 */
+.book-card:nth-child(4),
+.book-card:nth-child(5) {
+  grid-column: span 3; /* 下層兩個物件，讓它們分佈在兩個相等的欄位上 */
+  display: flex; 
+  justify-content: space-evenly; /* 平分下層兩個物件的寬度 */
 }
+
 
 
 .book-card {
