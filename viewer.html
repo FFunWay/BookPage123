@@ -1009,7 +1009,7 @@ $(document).ready(function () {
 
 function ResizeflipCanvasSize() {
     const aspectRatio = window.innerWidth / window.innerHeight;
-    const scaleFactor = $(window).width() * 0.9 / (__PAGE_WIDTH * 2);
+    const scaleFactor = $(window).width() / (__PAGE_WIDTH * 2);
 
 // 如果宽高比小于1，则是直式
 if (aspectRatio < 1) {
