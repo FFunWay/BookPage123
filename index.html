@@ -66,7 +66,7 @@
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* .book-selection {
+.book-selection {
     position: relative;
     margin-top: -100px;
     display: flex;
@@ -80,23 +80,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: flex-end;
-} */
-
-.book-selection {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 上層三個物件 */
-  grid-template-rows: auto auto; /* 兩行，行高根據內容自動調整 */
-  gap: 20px; /* 控制項目之間的間距 */
 }
-
-.book-card:nth-child(4),
-.book-card:nth-child(5) {
-  grid-column: span 3; /* 下層兩個物件，讓它們分佈在兩個相等的欄位上 */
-  display: flex; 
-  justify-content: space-evenly; /* 平分下層兩個物件的寬度 */
-}
-
-
 
 .book-card {
     width: 300px;
