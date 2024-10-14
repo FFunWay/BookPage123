@@ -195,12 +195,13 @@
 }
 
 #page-number-display {
-    font-size: 14px;
+    font-size: 24px;
     margin-top: 5px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, 20px);
+    color: #ffffff;
 }
 
 
@@ -234,7 +235,7 @@
 }
 
 #dive-frame {
-            width: 60%;
+            width: 90%;
             height: auto;
             max-width: 1000px;
             max-height: 80%;
@@ -302,15 +303,15 @@
         <!-- 真正的應用程式內容 -->
     <!-- Loading -->
         <div id="flipbook-container">
-            <button id="pdf-prev" class="arrow-button">
+<!--             <button id="pdf-prev" class="arrow-button">
                 <i class="fas fa-arrow-left"></i>
-            </button>
+            </button> -->
 
             <div id="flipbook"></div>
 
-            <button id="pdf-next" class="arrow-button">
+<!--             <button id="pdf-next" class="arrow-button">
                 <i class="fas fa-arrow-right"></i>
-            </button>
+            </button> -->
         </div>
 
         <div class="progress-bar">
@@ -331,7 +332,7 @@
         </div>
 <!-- 这是用于嵌入网页的容器 -->
         <div id="embed-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 9999;">
-        <iframe id="embed-frame" style="width: 60%; height: 80%; border: 2px solid #333;"></iframe>
+        <iframe id="embed-frame" style="width: 90%; height: 80%; border: 2px solid #333;"></iframe>
         <div id="embed-buttons" style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 10000;">
             <button onclick="closeEmbed()" style="margin: 5px; padding: 10px 20px; border-radius: 5px; background-color: #3a7ce6; color: white; cursor: pointer; border: none; font-size: 16px;">關閉遊戲</button>
             <button onclick="reloadEmbed()" style="margin: 5px; padding: 10px 20px; border-radius: 5px; background-color: #3a7ce6; color: white; cursor: pointer; border: none; font-size: 16px;">重新整理</button>
