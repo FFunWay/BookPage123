@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>音樂與運算思維學習互動式繪本    </title>
-
-    <span class="welcome-message" id="welcomeMessage"></span>
-    <a href="login.html" class="auth-button" id="authButton">登入</a>
-
+    <div class="top-bar">
+        <span class="welcome-message" id="welcomeMessage"></span>
+        <a href="login.html" class="auth-button" id="authButton">登入</a>
+    </div>
     <div class="hero-section">
         <h1>音樂與運算思維學習互動式繪本</h1>
         <p></p>
@@ -116,22 +116,21 @@
     margin-bottom: 20px;
 }
 
+.top-bar {
+    display: flex;
+    justify-content: flex-end; /* 将内容靠右对齐 */
+    align-items: center;
+    padding: 10px 25px;
+    background-color: #333; /* 可根据需要设置背景颜色 */
+}
+
 .welcome-message {
-    position: relative;
-    top: 25px;
-    left: 1000px;
     font-size: 23px;
-    color: #333;
-    /* font-family:sans-serif; */
-    z-index: 1;
-    /* margin-bottom: 5px; */
     color: #ffffff;
+    margin-right: 15px; /* 欢迎消息和按钮之间的间距 */
 }
 
 .auth-button {
-    position: relative;
-    top: 20px;
-    left: 1170px;
     background-color: #4ba6fb;
     color: white;
     border: none;
@@ -143,10 +142,6 @@
 
 .auth-button:hover {
     background-color: #003db6;
-}
-
-.p {
-    margin-top: 20px;
 }
 
 </style>
