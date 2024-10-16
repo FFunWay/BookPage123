@@ -968,6 +968,7 @@ function closeDive() {
 function restartDive() {
     const diveFrame = document.getElementById('dive-frame');
     diveFrame.src = diveFrame.src;  // 重启 DIVE
+    console.log(diveLinker.getIOList());
 }
 // 更新進度條
 function updateProgressBar() {
