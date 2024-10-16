@@ -853,7 +853,8 @@ function addDiveLinkToPage(pageNumber, config) {
 
     // 添加点击事件监听器
     linkElement.addEventListener('click', function (e) {
-        e.stopPropagation(); // 防止事件冒泡
+        e.stopPropagation();
+        console.log(diveLinker.getIOList());// 防止事件冒泡
         console.log('DIVE link clicked for page', pageNumber);
         try {
             const diveFrame = document.getElementById('dive-frame');
