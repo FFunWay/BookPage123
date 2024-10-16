@@ -854,7 +854,7 @@ function addDiveLinkToPage(pageNumber, config) {
     // 添加点击事件监听器
     linkElement.addEventListener('click', function (e) {
         e.stopPropagation();
-        console.log(diveLinker.getIOList());// 防止事件冒泡
+       // 防止事件冒泡
         console.log('DIVE link clicked for page', pageNumber);
         try {
             const diveFrame = document.getElementById('dive-frame');
@@ -865,6 +865,7 @@ function addDiveLinkToPage(pageNumber, config) {
                 document.getElementById('dive-container').style.display = 'flex';
                 diveFrame.classList.remove('hidden');
                 console.log("123");
+                console.log(diveLinker.getIOList());
             } else {
                 console.error("无法找到 dive-frame 元素");
             }
