@@ -758,15 +758,14 @@ $(document).ready(function() {
         document.getElementById('back-to-home').addEventListener('click', function() {
         window.location.href = 'index.html'; // 设置为首页的路径
     });
+        document.getElementById('diagnosis-page').addEventListener('click', function() {
+            window.location.href = 'Score.html'; // 设置为首页的路径
+    });
     $(window).resize(ResizeflipCanvasSize);
     $(window).resize(adjustLinkRegions);
     // 绑定返回首页按钮的点击事件
-    document.getElementById('back-to-home').addEventListener('click', function() {
-        window.location.href = 'index.html'; // 设置为首页的路径
     });
-    document.getElementById('diagnosis-page').addEventListener('click', function() {
-        window.location.href = 'Score.html'; // 设置为首页的路径
-    });
+    
 
 });
 
