@@ -912,7 +912,7 @@ function addDiveLinkToPage(pageNumber, config) {
     // });
                 const fetchDataInterval = setInterval(function() {
                 const ioList = diveLinker.getOutputList();  // 持續抓取 IO 列表
-
+                let storedValues = {};
                 // 抓取特定 ID 的值
                 const value1 = ioList["f81af3ccb6f94d629e6f932665fb8891"];
                 const value2 = ioList["f81af3ccb6f94d629e6f932665fb8891"];
