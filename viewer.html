@@ -488,24 +488,24 @@ let computationScore = 0;
 let musicScore = 0;
 let totalWeight = 0;
 
-function completeLevel(book, levelId) {
-    let levelStatus;
-    if (book === 1) {
-        levelStatus = levelStatus_Book1;
-    } else if (book === 2) {
-        levelStatus = levelStatus_Book2;
-    } else if (book === 3) {
-        levelStatus = levelStatus_Book3;
-    }
+// function completeLevel(book, levelId) {
+//     let levelStatus;
+//     if (book === 1) {
+//         levelStatus = levelStatus_Book1;
+//     } else if (book === 2) {
+//         levelStatus = levelStatus_Book2;
+//     } else if (book === 3) {
+//         levelStatus = levelStatus_Book3;
+//     }
 
-    if (levelStatus && levelStatus[levelId]) {
-        levelStatus[levelId].completed = true;
-        computationScore += levelStatus[levelId].computationWeight * 100;
-        musicScore += levelStatus[levelId].musicWeight * 100;
-        totalWeight += levelStatus[levelId].computationWeight + levelStatus[levelId].musicWeight;
-        console.log(`已完成 Book ${book}, Level ${levelId}！`);
-    }
-}
+//     if (levelStatus && levelStatus[levelId]) {
+//         levelStatus[levelId].completed = true;
+//         computationScore += levelStatus[levelId].computationWeight * 100;
+//         musicScore += levelStatus[levelId].musicWeight * 100;
+//         totalWeight += levelStatus[levelId].computationWeight + levelStatus[levelId].musicWeight;
+//         console.log(`已完成 Book ${book}, Level ${levelId}！`);
+//     }
+// }
 
 function calculateScores() {
     let overallComputation = computationScore / totalWeight;
@@ -896,20 +896,78 @@ function addDiveLinkToPage(pageNumber, config) {
                 diveLinker.start();
                 document.getElementById('dive-container').style.display = 'flex';
                 diveFrame.classList.remove('hidden');
-                console.log("123");
-                setTimeout(function() {
-                console.log(diveLinker.getIOList());
-            }, 5000);
-                setTimeout(function() {
-                console.log(diveLinker.getIOList());
-            }, 7000);
-            } else {
-                console.error("无法找到 dive-frame 元素");
-            }
-        } catch (error) {
-            console.error("DIVE 无法初始化:", error);
+                
+    //             setTimeout(function() {
+    //             console.log(diveLinker.getIOList());
+    //         }, 5000);
+    //             setTimeout(function() {
+    //             console.log(diveLinker.getIOList());
+    //         }, 7000);
+    //         } else {
+    //             console.error("无法找到 dive-frame 元素");
+    //         }
+    //     } catch (error) {
+    //         console.error("DIVE 无法初始化:", error);
+    //     }
+    // });
+                const fetchDataInterval = setInterval(function() {
+                const ioList = diveLinker.getIOList();  // 持續抓取 IO 列表
+
+                // 抓取特定 ID 的值
+                const value1 = getValueFromIOList(ioList, 'f81af3ccb6f94d629e6f932665fb8891');
+                const value2 = getValueFromIOList(ioList, '86c6797233d4497ab21fd516a98e24a4');
+
+                // 輸出抓取到的值
+                console.log(`ID f81af3ccb6f94d629e6f932665fb8891 的值為: ${value1}`);
+                console.log(`ID 86c6797233d4497ab21fd516a98e24a4 的值為: ${value2}`);
+
+                // 根據抓取到的值更新關卡狀態
+                if (value1 == 1) {
+                    completeLevel(1, '15');  // 第一冊第 15 關完成
+                }
+                if (value2 == 1) {
+                    completeLevel(1, '23');  // 第一冊第 23 關完成
+                }
+
+            }, 1000);  // 每秒抓取一次
+
+            // 當用戶點擊「關閉遊戲」按鈕時，停止抓取
+            document.querySelector('#dive-buttons button[onclick="closeDive()"]').addEventListener('click', function() {
+                clearInterval(fetchDataInterval);  // 停止抓取
+                console.log("已停止抓取 IO 列表");
+            });
+
+        } else {
+            console.error("無法找到 dive-frame 元素");
         }
-    });
+    } catch (error) {
+        console.error("DIVE 無法初始化:", error);
+    }
+});
+
+// 輔助函數：根據 ID 從 IO 列表中找到對應的值
+function getValueFromIOList(ioList, targetId) {
+    if (ioList && Array.isArray(ioList)) {
+        for (let io of ioList) {
+            if (io.id === targetId) {
+                return io.value;  // 返回對應 ID 的值
+            }
+        }
+    }
+    return null;  // 如果沒找到，返回 null
+}
+
+// 標記關卡為完成的函數
+function completeLevel(book, levelId) {
+    if (book === 1 && levelStatus_Book1.hasOwnProperty(levelId)) {
+        levelStatus_Book1[levelId].completed = true;
+    } else if (book === 2 && levelStatus_Book2.hasOwnProperty(levelId)) {
+        levelStatus_Book2[levelId].completed = true;
+    } else if (book === 3 && levelStatus_Book3.hasOwnProperty(levelId)) {
+        levelStatus_Book3[levelId].completed = true;
+    }
+    console.log(`Book ${book}, Level ${levelId} 已完成！`);
+}
     console.log('Image path:', config.imagePath);
     console.log('Link element:', linkElement);
 
@@ -1187,16 +1245,16 @@ function initializeApp() {
 }
 
 // 更新關卡狀況
-function completeLevel(book, levelId) {
-    if (book === 1 && levelStatus_Book1.hasOwnProperty(levelId)) {
-        levelStatus_Book1[levelId].completed = true;
-    } else if (book === 2 && levelStatus_Book2.hasOwnProperty(levelId)) {
-        levelStatus_Book2[levelId].completed = true;
-    } else if (book === 3 && levelStatus_Book3.hasOwnProperty(levelId)) {
-        levelStatus_Book3[levelId].completed = true;
-    }
-    console.log(`Book ${book}, Level ${levelId} 已完成！`);
-}
+// function completeLevel(book, levelId) {
+//     if (book === 1 && levelStatus_Book1.hasOwnProperty(levelId)) {
+//         levelStatus_Book1[levelId].completed = true;
+//     } else if (book === 2 && levelStatus_Book2.hasOwnProperty(levelId)) {
+//         levelStatus_Book2[levelId].completed = true;
+//     } else if (book === 3 && levelStatus_Book3.hasOwnProperty(levelId)) {
+//         levelStatus_Book3[levelId].completed = true;
+//     }
+//     console.log(`Book ${book}, Level ${levelId} 已完成！`);
+// }
 
 //傳至score.html
 document.getElementById('diagnosis-page').addEventListener('click', function() {
