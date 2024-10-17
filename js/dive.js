@@ -1,33 +1,32 @@
 const diveLinker = new DiveLinker("dive");
 
-window.onload = function() {
-    // 啟動 DiveLinker
+function initDiveLinker(projectId) {
+    diveLinker.setProject(projectId);
     diveLinker.start();
 
-    // 定期抓取輸出列表
-    setInterval(() => {
-        const outputList = diveLinker.getOutputList();
-        
-        // 抓取 ID 為 f81af3ccb6f94d629e6f932665fb8891 和 86c6797233d4497ab21fd516a98e24a4 的值
-        const value1 = getValueFromOutputList(outputList, 'f81af3ccb6f94d629e6f932665fb8891');
-        const value2 = getValueFromOutputList(outputList, '86c6797233d4497ab21fd516a98e24a4');
+    console.log("DIVE Linker Initialized");
+    
+    // 等待 DIVE 初始化後開始抓取數值
+    setTimeout(() => {
+        // 設置一個定時器來定期抓取數值
+        const fetchDataInterval = setInterval(() => {
+            const outputList = diveLinker.getOutputList();
 
-        console.log(`ID f81af3ccb6f94d629e6f932665fb8891 的值為: ${value1}`);
-        console.log(`ID 86c6797233d4497ab21fd516a98e24a4 的值為: ${value2}`);
+            // 抓取 ID 為 f81af3ccb6f94d629e6f932665fb8891 和 86c6797233d4497ab21fd516a98e24a4 的值
+            const value1 = getValueFromOutputList(outputList, 'f81af3ccb6f94d629e6f932665fb8891');
+            const value2 = getValueFromOutputList(outputList, '86c6797233d4497ab21fd516a98e24a4');
 
-        // 將抓取到的值存儲到 sessionStorage，供 Score.html 使用
-        sessionStorage.setItem('id_f81af3ccb6f94d629e6f932665fb8891', value1);
-        sessionStorage.setItem('id_86c6797233d4497ab21fd516a98e24a4', value2);
+            console.log(`ID f81af3ccb6f94d629e6f932665fb8891 的值為: ${value1}`);
+            console.log(`ID 86c6797233d4497ab21fd516a98e24a4 的值為: ${value2}`);
 
-        // 進一步處理分數邏輯，例如標記關卡完成
-        if (value1 == 1) {
-            completeLevel(1, '15');  // 第一冊第 15 關完成
-        }
-        if (value2 == 1) {
-            completeLevel(1, '23');  // 第一冊第 23 關完成
-        }
-    }, 1000);  // 每 1 秒抓取一次
-};
+            // 如果希望抓到特定值後停止抓取，可以在這裡添加條件
+            if (value1 === 1 || value2 === 1) {
+                clearInterval(fetchDataInterval); // 停止抓取
+            }
+
+        }, 1000); // 每秒抓取一次
+    }, 3000); // 延遲 3 秒後開始抓取數值
+}
 
 // 輔助函數：根據 ID 從輸出列表中找到對應的值
 function getValueFromOutputList(outputList, targetId) {
@@ -41,8 +40,23 @@ function getValueFromOutputList(outputList, targetId) {
     return null;  // 如果沒找到，返回 null
 }
 
-// 標記關卡為完成的函數
-function completeLevel(book, levelId) {
-    console.log(`Book ${book}, Level ${levelId} 已完成！`);
-    // 可以在這裡更新相關的關
+// 點擊事件的處理
+function setupDiveLinkEvent(linkElement, projectId) {
+    linkElement.addEventListener('click', function (e) {
+        e.stopPropagation(); // 防止事件冒泡
+        console.log('DIVE link clicked for page', linkElement.dataset.page);  // 假設有 data-page 屬性
+        
+        try {
+            const diveFrame = document.getElementById('dive-frame');
+            if (diveFrame) {
+                document.getElementById('dive-container').style.display = 'flex';
+                diveFrame.classList.remove('hidden');
+                initDiveLinker(projectId); // 初始化 DIVE
+            } else {
+                console.error("無法找到 dive-frame 元素");
+            }
+        } catch (error) {
+            console.error("DIVE 無法初始化:", error);
+        }
+    });
 }
