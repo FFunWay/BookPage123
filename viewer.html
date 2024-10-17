@@ -911,12 +911,11 @@ function addDiveLinkToPage(pageNumber, config) {
     //     }
     // });
                 const fetchDataInterval = setInterval(function() {
-                const ioList = diveLinker.getIOList();  // 持續抓取 IO 列表
+                const ioList = diveLinker.getOutputList();  // 持續抓取 IO 列表
 
                 // 抓取特定 ID 的值
-                const value1 = getValueFromIOList(ioList, 'f81af3ccb6f94d629e6f932665fb8891');
-                const value2 = getValueFromIOList(ioList, '86c6797233d4497ab21fd516a98e24a4');
-
+                const value1 = ioList["f81af3ccb6f94d629e6f932665fb8891"];
+                const value2 = ioList["f81af3ccb6f94d629e6f932665fb8891"];
                 // 輸出抓取到的值
                 console.log(`ID f81af3ccb6f94d629e6f932665fb8891 的值為: ${value1}`);
                 console.log(`ID 86c6797233d4497ab21fd516a98e24a4 的值為: ${value2}`);
