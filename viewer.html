@@ -1184,7 +1184,7 @@ let musicScore = 0;
 let totalWeight = 0;
 
 // 綁定 "學習診斷" 按鈕點擊事件
-document.getElementById('diagnosis-page').addEventListener('click', function() {
+$(document).getElementById('diagnosis-page').addEventListener('click', function() {
     // 假設你有存儲每本書的關卡完成情況，可以像這樣儲存到 sessionStorage
     console.log("進到評分");
     sessionStorage.setItem('levelStatus_Book1', JSON.stringify(levelStatus_Book1));
