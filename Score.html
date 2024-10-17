@@ -10,50 +10,53 @@
     <button id="back-button" class="back-button">返回</button>
     <div class="hero-section">
         <h1>學習診斷</h1>
-        <p></p>
     </div>
 
-    <!-- DIVE得分條 -->
+    <!-- 運算思維掌握度 -->
     <div class="label">運算思維掌握度</div>
     <div class="progress-container">
         <div id="computationProgress" class="progress-bar">0%</div>
     </div>
 
+    <!-- 音樂思維掌握度 -->
     <div class="label">音樂思維掌握度</div>
     <div class="progress-container">
         <div id="musicProgress" class="progress-bar">0%</div>
     </div>
 
-    <div class="label">整體學習度</div>
+    <!-- 整體評價 -->
+    <div class="label">整體評價</div>
     <div class="progress-container">
-        <div id="diveProgress" class="progress-bar">0%</div>
+        <div id="overallProgress" class="progress-bar">0%</div>
     </div>
 
     <script>
-        // 返回繪本內容，取得 URL 參數中的 PDF 文件名
-        const urlParams = new URLSearchParams(window.location.search);
-        const pdfFile = urlParams.get('pdf') || 'default.pdf'; // 默認 PDF 文件
+        // 從 sessionStorage 中取得評分
+        let computationScore = sessionStorage.getItem('computationScore') || 0;
+        let musicScore = sessionStorage.getItem('musicScore') || 0;
+        let overallScore = sessionStorage.getItem('overallScore') || 0;
 
-        console.log(`返回要載入PDF: ${pdfFile}`);
+        // 設定運算思維進度條
+        document.getElementById('computationProgress').style.width = computationScore + '%';
+        document.getElementById('computationProgress').textContent = computationScore + '%';
 
-        // 返回按鈕點擊事件，帶著 PDF 文件參數返回到 viewer.html
+        // 設定音樂思維進度條
+        document.getElementById('musicProgress').style.width = musicScore + '%';
+        document.getElementById('musicProgress').textContent = musicScore + '%';
+
+        // 設定整體評價進度條
+        document.getElementById('overallProgress').style.width = overallScore + '%';
+        document.getElementById('overallProgress').textContent = overallScore + '%';
+
+        // 返回按鈕邏輯，返回到之前閱讀的書本
         document.getElementById('back-button').addEventListener('click', function() {
-            window.location.href = `viewer.html?pdf=${pdfFile}`; // 跳轉到 viewer.html 並加上 pdf 文件參數
+            const currentBook = sessionStorage.getItem('currentBook'); // 從 sessionStorage 取得目前閱讀的書本
+            if (currentBook) {
+                window.location.href = `ask_gpt.html?book=${currentBook}`; // 返回到相應的書本
+            } else {
+                window.history.back(); // 如果沒有存儲書本資訊，則回到上一頁
+            }
         });
-
-        // 获取已存储的翻页和 DIVE 得分
-        let pageScore = sessionStorage.getItem('pageScore') || 0;
-        let diveScores = JSON.parse(sessionStorage.getItem('diveScores')) || {};
-        let totalDiveScore = Object.values(diveScores).reduce((a, b) => a + b, 0);
-
-        // 设置翻页进度条
-        document.getElementById('computationProgress').style.width = pageScore + '%';
-        document.getElementById('computationProgress').textContent = pageScore + '%';
-
-        // 设置 DIVE 得分进度条
-        let diveScorePercentage = (totalDiveScore / 100) * 100;  // 假设 DIVE 满分为 100
-        document.getElementById('musicProgress').style.width = diveScorePercentage + '%';
-        document.getElementById('musicProgress').textContent = diveScorePercentage + '%';
     </script>
 </body>
 </html>
