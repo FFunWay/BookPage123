@@ -1183,6 +1183,21 @@ let computationScore = 0;
 let musicScore = 0;
 let totalWeight = 0;
 
+// 綁定 "學習診斷" 按鈕點擊事件
+document.getElementById('diagnosis-page').addEventListener('click', function() {
+    // 假設你有存儲每本書的關卡完成情況，可以像這樣儲存到 sessionStorage
+    sessionStorage.setItem('levelStatus_Book1', JSON.stringify(levelStatus_Book1));
+    sessionStorage.setItem('levelStatus_Book2', JSON.stringify(levelStatus_Book2));
+    sessionStorage.setItem('levelStatus_Book3', JSON.stringify(levelStatus_Book3));
+
+    // 紀錄目前閱讀的書本
+    sessionStorage.setItem('currentBook', bookPath); // bookPath 是目前正在閱讀的書本路徑
+
+    // 跳轉到 Score.html
+    window.location.href = 'Score.html';
+});
+
+
 function completeLevel(book, levelId) {
     if (book === 1 && levelStatus_Book1.hasOwnProperty(levelId)) {
         levelStatus_Book1[levelId].completed = true;
