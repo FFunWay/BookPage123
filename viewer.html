@@ -1167,15 +1167,20 @@ function completeLevel(book, levelId) {
 }
 
 //傳至score.html
-document.getElementById('diagnosis-page').addEventListener('click', function() {
-    sessionStorage.setItem('levelStatus_Book1', JSON.stringify(levelStatus_Book1));
-    sessionStorage.setItem('levelStatus_Book2', JSON.stringify(levelStatus_Book2));
-    sessionStorage.setItem('levelStatus_Book3', JSON.stringify(levelStatus_Book3));
-    window.location.href = 'Score.html';
-});
-
-// 當頁面完全載入後，開始初始化
-window.addEventListener('load', initializeApp);
+window.onload = function() {
+            const diagnosisButton = document.getElementById('diagnosis-page');
+            
+            // 檢查按鈕是否存在
+            if (diagnosisButton) {
+                diagnosisButton.addEventListener('click', function() {
+                    console.log("按鈕被點擊，進入 Score.html");
+                    // 跳轉到 Score.html
+                    window.location.href = 'Score.html';
+                });
+            } else {
+                console.error("找不到診斷按鈕");
+            }
+        };
     
     </script>
 </body>
