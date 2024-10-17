@@ -361,13 +361,6 @@
                 <button onclick="restartDive()">重新整理</button>
             </div>
         </div>
-    <!-- 學習診斷 -->
-<!--         <div id="diagnosis-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 9999;">
-    <iframe id="diagnosis-frame" style="width: 60%; height: 80%; border: 2px solid #333;"></iframe>
-    <div id="diagnosis-buttons" style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 10000;">
-        <button onclick="closeDiagnosis()" style="margin: 5px; padding: 10px 20px; border-radius: 5px; background-color: #3a7ce6; color: white; cursor: pointer; border: none; font-size: 16px;">关闭诊断</button>
-    </div>
-</div> -->
 <!-- 这是用于嵌入网页的容器 -->
         <div id="embed-container" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center; z-index: 9999;">
         <iframe id="embed-frame" style="width: 90%; height: 80%; border: 2px solid #333;"></iframe>
@@ -491,6 +484,46 @@ const levelStatus_Book1 = {
         '20': { completed: false, computationWeight: 0.5, musicWeight: 0.3}, 
         };
 
+let computationScore = 0;
+let musicScore = 0;
+let totalWeight = 0;
+
+function completeLevel(book, levelId) {
+    let levelStatus;
+    if (book === 1) {
+        levelStatus = levelStatus_Book1;
+    } else if (book === 2) {
+        levelStatus = levelStatus_Book2;
+    } else if (book === 3) {
+        levelStatus = levelStatus_Book3;
+    }
+
+    if (levelStatus && levelStatus[levelId]) {
+        levelStatus[levelId].completed = true;
+        computationScore += levelStatus[levelId].computationWeight * 100;
+        musicScore += levelStatus[levelId].musicWeight * 100;
+        totalWeight += levelStatus[levelId].computationWeight + levelStatus[levelId].musicWeight;
+        console.log(`已完成 Book ${book}, Level ${levelId}！`);
+    }
+}
+
+function calculateScores() {
+    let overallComputation = computationScore / totalWeight;
+    let overallMusic = musicScore / totalWeight;
+    let overallScore = (overallComputation + overallMusic) / 2;
+
+    sessionStorage.setItem('computationScore', overallComputation.toFixed(2));
+    sessionStorage.setItem('musicScore', overallMusic.toFixed(2));
+    sessionStorage.setItem('overallScore', overallScore.toFixed(2));
+}
+
+document.getElementById('diagnosis-page').addEventListener('click', function() {
+    calculateScores();  // 計算評分
+    sessionStorage.setItem('currentBook', bookPath); // 紀錄目前閱讀的書本
+    window.location.href = 'Score.html'; // 跳轉到評分頁面
+});
+
+    
 // 隱藏 Loading 畫面
 function hideLoading() {
     const loadingScreen = document.getElementById('loading-screen');
