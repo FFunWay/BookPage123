@@ -916,8 +916,12 @@ function addDiveLinkToPage(pageNumber, config) {
                 // 抓取特定 ID 的值
                 const value1 = ioList["f81af3ccb6f94d629e6f932665fb8891"];
                 const value2 = ioList["f81af3ccb6f94d629e6f932665fb8891"];
+
+                if (value1) {
+                    storedValues["f81af3ccb6f94d629e6f932665fb8891"] = value1.value;
+                }
                 // 輸出抓取到的值
-                console.log(`ID f81af3ccb6f94d629e6f932665fb8891 的值為: ${value1}`);
+                console.log(storedValues["f81af3ccb6f94d629e6f932665fb8891"]);
                 console.log(`ID 86c6797233d4497ab21fd516a98e24a4 的值為: ${value2}`);
 
                 // 根據抓取到的值更新關卡狀態
