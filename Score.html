@@ -53,7 +53,7 @@
         document.getElementById('back-button').addEventListener('click', function() {
             const currentBook = sessionStorage.getItem('currentBook'); // 從 sessionStorage 取得目前閱讀的書本
             if (currentBook) {
-                window.location.href = `ask_gpt.html?book=${currentBook}`; // 返回到相應的書本
+                window.location.href = `viewer.html?book=${currentBook}`; // 返回到相應的書本
             } else {
                 window.history.back(); // 如果沒有存儲書本資訊，則回到上一頁
             }
