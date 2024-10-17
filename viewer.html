@@ -919,6 +919,7 @@ function addDiveLinkToPage(pageNumber, config) {
 
                 if (value1) {
                     storedValues["f81af3ccb6f94d629e6f932665fb8891"] = value1.value;
+            
                 }
                 if (value2) {
                     storedValues["86c6797233d4497ab21fd516a98e24a4"] = value2.value;
@@ -929,7 +930,7 @@ function addDiveLinkToPage(pageNumber, config) {
                 console.log(value1);
 
                 // 根據抓取到的值更新關卡狀態
-                if (value1 == 1) {
+                if (storedValues["f81af3ccb6f94d629e6f932665fb8891"] == 1) {
                     completeLevel(1, '15');  // 第一冊第 15 關完成
                     console.log("1 finish");
                 }
