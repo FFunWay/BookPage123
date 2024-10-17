@@ -929,7 +929,7 @@ function addDiveLinkToPage(pageNumber, config) {
                     completeLevel(1, '23');  // 第一冊第 23 關完成
                 }
 
-            }, 1000);  // 每秒抓取一次
+            }, 3000);  // 每秒抓取一次
 
             // 當用戶點擊「關閉遊戲」按鈕時，停止抓取
             document.querySelector('#dive-buttons button[onclick="closeDive()"]').addEventListener('click', function() {
