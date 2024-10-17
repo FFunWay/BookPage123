@@ -1,30 +1,61 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>學習診斷</title>
+    <link rel="stylesheet" href="CSS/sorce.css">
 </head>
 <body>
-    <h1>學習診斷結果</h1>
-    <p>運算思維得分: <span id="computationScore"></span></p>
-    <p>音樂思維得分: <span id="musicScore"></span></p>
-    <p>整體評價得分: <span id="overallScore"></span></p>
+    <button id="back-button" class="back-button">返回</button>
+    <div class="hero-section">
+        <h1>學習診斷</h1>
+    </div>
 
-    <button id="back-button">返回</button>
+    <!-- 運算思維掌握度 -->
+    <div class="label">運算思維掌握度</div>
+    <div class="progress-container">
+        <div id="computationProgress" class="progress-bar">0%</div>
+    </div>
+
+    <!-- 音樂思維掌握度 -->
+    <div class="label">音樂思維掌握度</div>
+    <div class="progress-container">
+        <div id="musicProgress" class="progress-bar">0%</div>
+    </div>
+
+    <!-- 整體評價 -->
+    <div class="label">整體評價</div>
+    <div class="progress-container">
+        <div id="overallProgress" class="progress-bar">0%</div>
+    </div>
 
     <script>
-        // 從 sessionStorage 中讀取分數
-        document.getElementById('computationScore').textContent = sessionStorage.getItem('computationScore') || 0;
-        document.getElementById('musicScore').textContent = sessionStorage.getItem('musicScore') || 0;
-        document.getElementById('overallScore').textContent = sessionStorage.getItem('overallScore') || 0;
+        // 從 sessionStorage 中取得評分
+        let computationScore = sessionStorage.getItem('computationScore') || 0;
+        let musicScore = sessionStorage.getItem('musicScore') || 0;
+        let overallScore = sessionStorage.getItem('overallScore') || 0;
 
-        // 返回按鈕，返回到之前閱讀的書本
+        // 設定運算思維進度條
+        document.getElementById('computationProgress').style.width = computationScore + '%';
+        document.getElementById('computationProgress').textContent = computationScore + '%';
+
+        // 設定音樂思維進度條
+        document.getElementById('musicProgress').style.width = musicScore + '%';
+        document.getElementById('musicProgress').textContent = musicScore + '%';
+
+        // 設定整體評價進度條
+        document.getElementById('overallProgress').style.width = overallScore + '%';
+        document.getElementById('overallProgress').textContent = overallScore + '%';
+
+        // 返回按鈕邏輯，返回到之前閱讀的書本
         document.getElementById('back-button').addEventListener('click', function() {
-            const currentBook = sessionStorage.getItem('currentBook');
+            const currentBook = sessionStorage.getItem('currentBook'); // 從 sessionStorage 取得目前閱讀的書本
             if (currentBook) {
-                window.location.href = `viewer.html?book=${currentBook}`;  // 回到之前的書本
+                window.location.href = `ask_gpt.html?book=${currentBook}`; // 返回到相應的書本
             } else {
-                window.history.back();  // 沒有記錄就回到上一頁
+                window.history.back(); // 如果沒有存儲書本資訊，則回到上一頁
             }
         });
     </script>
