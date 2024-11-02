@@ -375,6 +375,8 @@
 const FIRST_BOOK_FILENAME = 'book1.pdf';
 const SECOND_BOOK_FILENAME = 'book2.pdf'; 
 const THIRD_BOOK_FILENAME = 'book3.pdf';
+const FORTH_BOOK_FILENAME = 'book4.pdf';
+const FIFTH_BOOK_FILENAME = 'book5.pdf';
 
 
 const rightOffset = 10;
@@ -392,26 +394,18 @@ let linkRegions = [];
 
 const embedLinkPages = {
     '33': {
-        left: '504',
-        top: '314',
-        width: '120',
-        height: '120',
+        left: '445px',
+        top: '1050px',
+        width: '390px',
+        height: '390px',
         url: 'https:///tinty817.github.io/B1L3/' 
-    },
-    '20': {
-        left: '320px',
-        top: '370px',
-        width: '120px',
-        height: '120px',
-        url: 'https://tinty817.github.io/B3L3/'
-        
     },
 };
 
 
 const diveLinkPages = {
     '15': {
-        left: '300px',
+        left: '260px',
         top: '1400px',
         width: '350px',
         height: '350px',
@@ -431,10 +425,10 @@ const diveLinkPages = {
 
 const diveLinkPagesForSecondBook = {
     '11': {
-        left: '86px',
-        top: '325px',
-        width: '130px',
-        height: '130px',
+        left: '320px',
+        top: '1240px',
+        width: '420px',
+        height: '420px',
         projectId: 28287 // 第二册的 DIVE 项目编号
     },
     '15': {
@@ -448,24 +442,78 @@ const diveLinkPagesForSecondBook = {
 };
 const diveLinkPagesForThirdBook = {
     '5': {
-        left: '550px',
-        top: '40px',
-        width: '120px',
-        height: '120px',
+        left: '620px',
+        top: '620px',
+        width: '160px',
+        height: '160px',
         projectId: 31666 ,
-        // imagePath: 'QRcode/3-1.png' // 插入的第一张图片
     },
-    '13': {
-        left: '320px',
-        top: '370px',
-        width: '120px',
-        height: '120px',
+    '15': {
+        left: '560px',
+        top: '660px',
+        width: '210px',
+        height: '210px',
         projectId: 30173 ,
         // imagePath: 'QRcode/3-2.png' 
     },
     
 
 };
+
+const embedLinkPagesForThirdBook = {
+    '21': {
+        left: '510px',
+        top: '210px',
+        width: '250px',
+        height: '250px',
+        url: 'https://tinty817.github.io/B3L3/'
+        
+    },
+};
+
+
+const diveLinkPagesForForthBook = {
+    '7': {
+        left: '930px',
+        top: '110px',
+        width: '270px',
+        height: '270px',
+        projectId: 31836 ,
+    },
+    '15': {
+        left: '910px',
+        top: '460px',
+        width: '220px',
+        height: '220px',
+        projectId: 31589 ,
+    },
+    
+};
+
+const diveLinkPagesForFifthBook = {
+    '9': {
+        left: '460px',
+        top: '700px',
+        width: '250px',
+        height: '250px',
+        projectId: 31837 ,
+    },
+    '15': {
+        left: '555px',
+        top: '418px',
+        width: '265px',
+        height: '265px',
+        projectId: 30177 ,
+    },
+    '21': {
+        left: '740px',
+        top: '250px',
+        width: '220px',
+        height: '220px',
+        projectId: 30924 ,
+    },
+};
+
 // 關卡狀況與比重
 const levelStatus_Book1 = {
         '15': { completed: false, computationWeight: 0.4, musicWeight: 0.3 },
@@ -484,9 +532,13 @@ const levelStatus_Book1 = {
         '20': { completed: false, computationWeight: 0.5, musicWeight: 0.3}, 
         };
 
-let computationScore = 0;
-let musicScore = 0;
-let totalWeight = 0;
+let computationScore = sessionStorage.getItem('computationScore') ? parseFloat(sessionStorage.getItem('computationScore')) : 0;
+let musicScore = sessionStorage.getItem('musicScore') ? parseFloat(sessionStorage.getItem('musicScore')) : 0;
+let totalWeight = sessionStorage.getItem('totalWeight') ? parseFloat(sessionStorage.getItem('totalWeight')) : 0;
+
+sessionStorage.setItem('computationScore', '0');
+sessionStorage.setItem('musicScore', '0');
+sessionStorage.setItem('totalWeight', '0');
 
 // function completeLevel(book, levelId) {
 //     let levelStatus;
@@ -506,20 +558,45 @@ let totalWeight = 0;
 //         console.log(`已完成 Book ${book}, Level ${levelId}！`);
 //     }
 // }
-
 function calculateScores() {
+    if (totalWeight === 0) {
+        console.warn("Total weight is zero, cannot calculate scores.");
+        sessionStorage.setItem('computationScore', '0');
+        sessionStorage.setItem('musicScore', '0');
+        sessionStorage.setItem('overallScore', '0');
+        return;
+    }
+
     let overallComputation = computationScore / totalWeight;
     let overallMusic = musicScore / totalWeight;
     let overallScore = (overallComputation + overallMusic) / 2;
 
+    // 限制分数最大为 100%
+    overallComputation = Math.min(overallComputation, 100);
+    overallMusic = Math.min(overallMusic, 100);
+    overallScore = Math.min(overallScore, 100);
+
     sessionStorage.setItem('computationScore', overallComputation.toFixed(2));
     sessionStorage.setItem('musicScore', overallMusic.toFixed(2));
     sessionStorage.setItem('overallScore', overallScore.toFixed(2));
+    console.log("分数已計算並更新至 sessionStorage 中。");
+    console.log("computationScore:", overallComputation);
+    console.log("musicScore:", overallMusic);
+    console.log("overallScore:", overallScore);
+
+
 }
+
 
 document.getElementById('diagnosis-page').addEventListener('click', function() {
     calculateScores();  // 計算評分
     sessionStorage.setItem('currentBook', bookPath); // 紀錄目前閱讀的書本
+    
+    console.log("跳转前的分数：", {
+        computation: sessionStorage.getItem('computationScore'),
+        music: sessionStorage.getItem('musicScore'),
+        overall: sessionStorage.getItem('overallScore'),
+    });
     window.location.href = 'Score.html'; // 跳轉到評分頁面
 });
 
@@ -727,7 +804,17 @@ function bindFlipbookEvents() {
             }
         } else if (bookPath === THIRD_BOOK_FILENAME) {
             handlePageLinks(view, diveLinkPagesForThirdBook);
-            handleEmbedLinks(view, embedLinkPages);
+            handleEmbedLinks(view, embedLinkPagesForThirdBook);
+            if (isLastPage) {
+                askForHome();
+            }
+        } else if (bookPath === FORTH_BOOK_FILENAME) {
+            handlePageLinks(view, diveLinkPagesForForthBook);
+            if (isLastPage) {
+                askForHome();
+            }
+        } else if (bookPath === FIFTH_BOOK_FILENAME) {
+            handlePageLinks(view, diveLinkPagesForFifthBook);
             if (isLastPage) {
                 askForHome();
             }
@@ -928,14 +1015,24 @@ function addDiveLinkToPage(pageNumber, config) {
                 console.log(storedValues["f81af3ccb6f94d629e6f932665fb8891"]);
                 console.log(storedValues["86c6797233d4497ab21fd516a98e24a4"]);
                 console.log(value1);
+                console.log(value2);
 
                 // 根據抓取到的值更新關卡狀態
                 if (storedValues["f81af3ccb6f94d629e6f932665fb8891"] == 1) {
                     completeLevel(1, '15');  // 第一冊第 15 關完成
                     console.log("1 finish");
+                    computationScore += levelStatus_Book1['15'].computationWeight * 100;
+                        musicScore += levelStatus_Book1['15'].musicWeight * 100;
+                        totalWeight += levelStatus_Book1['15'].computationWeight + levelStatus_Book1['15'].musicWeight;
+
                 }
-                if (value2 == 1) {
+                if (storedValues["86c6797233d4497ab21fd516a98e24a4"] == 1) {
                     completeLevel(1, '23');  // 第一冊第 23 關完成
+                    console.log("2 finish");
+                    computationScore += levelStatus_Book1['23'].computationWeight * 100;
+                        musicScore += levelStatus_Book1['23'].musicWeight * 100;
+                        totalWeight += levelStatus_Book1['23'].computationWeight + levelStatus_Book1['23'].musicWeight;
+
                 }
 
             }, 3000);  // 每秒抓取一次
@@ -968,15 +1065,37 @@ function getValueFromIOList(ioList, targetId) {
 
 // 標記關卡為完成的函數
 function completeLevel(book, levelId) {
-    if (book === 1 && levelStatus_Book1.hasOwnProperty(levelId)) {
-        levelStatus_Book1[levelId].completed = true;
-    } else if (book === 2 && levelStatus_Book2.hasOwnProperty(levelId)) {
-        levelStatus_Book2[levelId].completed = true;
-    } else if (book === 3 && levelStatus_Book3.hasOwnProperty(levelId)) {
-        levelStatus_Book3[levelId].completed = true;
+    let levelStatus;
+
+    if (book === 1) {
+        levelStatus = levelStatus_Book1;
+    } else if (book === 2) {
+        levelStatus = levelStatus_Book2;
+    } else if (book === 3) {
+        levelStatus = levelStatus_Book3;
     }
-    console.log(`Book ${book}, Level ${levelId} 已完成！`);
+
+    // 确保关卡存在且未完成
+    if (levelStatus && levelStatus[levelId] && !levelStatus[levelId].completed) {
+        levelStatus[levelId].completed = true;
+
+        computationScore += levelStatus[levelId].computationWeight * 100;
+        musicScore += levelStatus[levelId].musicWeight * 100;
+        totalWeight += levelStatus[levelId].computationWeight + levelStatus[levelId].musicWeight;
+
+        // 保存分数
+
+        sessionStorage.setItem('computationScore', computationScore.toFixed(2));
+        sessionStorage.setItem('musicScore', musicScore.toFixed(2));
+        sessionStorage.setItem('totalWeight', totalWeight.toFixed(2));
+        calculateScores();
+
+        console.log(`已完成 Book ${book}, Level ${levelId}！ 成績已更新。`);
+        } else {
+        console.log(`关卡 ${levelId} 已经完成或不存在，不能重复累加。`);
+    }
 }
+
     console.log('Image path:', config.imagePath);
     console.log('Link element:', linkElement);
 
@@ -1266,12 +1385,12 @@ function initializeApp() {
 // }
 
 //傳至score.html
-document.getElementById('diagnosis-page').addEventListener('click', function() {
-    sessionStorage.setItem('levelStatus_Book1', JSON.stringify(levelStatus_Book1));
-    sessionStorage.setItem('levelStatus_Book2', JSON.stringify(levelStatus_Book2));
-    sessionStorage.setItem('levelStatus_Book3', JSON.stringify(levelStatus_Book3));
-    window.location.href = 'Score.html';
-});
+// document.getElementById('diagnosis-page').addEventListener('click', function() {
+//     sessionStorage.setItem('levelStatus_Book1', JSON.stringify(levelStatus_Book1));
+//     sessionStorage.setItem('levelStatus_Book2', JSON.stringify(levelStatus_Book2));
+//     sessionStorage.setItem('levelStatus_Book3', JSON.stringify(levelStatus_Book3));
+//     window.location.href = 'Score.html';
+// });
 
 
 // 當頁面完全載入後，開始初始化
